@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Before the Umbrella &mdash; The Church of Barbelo</title>
+<meta name="description" content="A working paper on the &lsquo;Ophites&rsquo;, the originator-layer, and the case for a proto-Gnostic reclassification.">
+<meta property="og:title" content="Before the Umbrella">
+<meta property="og:description" content="A working paper on the &lsquo;Ophites&rsquo;, the originator-layer, and the case for a proto-Gnostic reclassification.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="./og-image.png">
+<meta name="theme-color" content="#E7E3D8">
+<link rel="icon" href="./favicon.png" sizes="64x64">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14120E;
+  --vellum:#E7E3D8;
+  --card:#F2EFE6;
+  --lapis:#232C63;
+  --gilt:#96762F;
+  --muted:#6C6558;
+  --rule:rgba(20,18,14,.16);
+  --display:"Bodoni Moda",Georgia,serif;
+  --body:"Spectral",Georgia,serif;
+  --util:"Archivo",system-ui,sans-serif;
+  --wide:1120px;
+  --pad:clamp(1.25rem,5vw,3rem);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--vellum);
+  color:var(--ink);
+  font-family:var(--body);
+  font-weight:400;
+  font-size:clamp(1.02rem,.98rem + .35vw,1.15rem);
+  line-height:1.68;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:var(--lapis);text-underline-offset:.22em;text-decoration-thickness:.5px}
+a:hover{color:var(--ink)}
+:focus-visible{outline:2px solid var(--lapis);outline-offset:3px}
+
+.wrap{width:100%;max-width:var(--wide);margin-inline:auto;padding-inline:var(--pad)}
+
+/* ---------- shared type ---------- */
+.eyebrow{
+  font-family:var(--util);
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--gilt);
+  margin:0 0 1.1rem;
+}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.005em;margin:0}
+h2{font-size:clamp(1.85rem,1.4rem + 1.8vw,2.7rem);line-height:1.12}
+h3{font-size:1.2rem;line-height:1.3}
+.lede{font-size:1.12em;line-height:1.62}
+.muted{color:var(--muted)}
+
+/* ---------- header ---------- */
+.masthead{
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb,var(--vellum) 94%,transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.masthead .wrap{display:flex;align-items:center;gap:1rem;min-height:64px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit;margin-right:auto}
+.brand img{width:26px;height:auto}
+.brand span{
+  font-family:var(--display);
+  font-size:.94rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.nav{display:flex;gap:1.15rem;flex-wrap:wrap}
+.nav a{
+  font-family:var(--util);
+  font-size:.74rem;
+  font-weight:500;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--ink);
+  text-decoration:none;
+  padding:.35rem 0;
+  border-bottom:1px solid transparent;
+}
+.nav a:hover{border-bottom-color:var(--gilt)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(2.5rem,6vw,4.5rem);text-align:center}
+.seal{
+  position:relative;
+  width:min(300px,64vw);
+  aspect-ratio:1;
+  margin:0 auto clamp(1.75rem,4vw,2.75rem);
+}
+.seal::before{
+  content:"";
+  position:absolute;
+  inset:-22%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(150,118,47,.15) 0%,rgba(150,118,47,0) 62%);
+}
+.seal img{position:absolute;inset:0;width:100%;height:100%}
+.seal .ring{animation:turn 120s linear infinite}
+@keyframes turn{to{transform:rotate(-360deg)}}
+
+.wordmark{
+  font-family:var(--display);
+  font-weight:400;
+  font-size:clamp(2.1rem,1.2rem + 4.2vw,4rem);
+  line-height:1.02;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+  margin:0;
+}
+.wordmark .the{
+  display:block;
+  font-size:.28em;
+  letter-spacing:.5em;
+  margin-bottom:.7em;
+  text-indent:.5em;
+}
+.wordmark .of{
+  display:block;
+  font-size:.3em;
+  letter-spacing:.44em;
+  margin:.45em 0;
+  text-indent:.44em;
+}
+.epigraph{
+  max-width:34ch;
+  margin:clamp(1.6rem,4vw,2.4rem) auto 0;
+  font-style:italic;
+  font-size:1.05em;
+  color:var(--muted);
+  line-height:1.55;
+}
+.epigraph cite{display:block;font-style:normal;font-family:var(--util);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gilt);margin-top:1rem}
+.actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-top:clamp(1.75rem,4vw,2.5rem)}
+.btn{
+  font-family:var(--util);
+  font-size:.75rem;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  text-decoration:none;
+  padding:.85rem 1.5rem;
+  border:1px solid var(--ink);
+  color:var(--ink);
+  transition:background .18s ease,color .18s ease;
+}
+.btn:hover{background:var(--ink);color:var(--vellum)}
+.btn.solid{background:var(--ink);color:var(--vellum)}
+.btn.solid:hover{background:var(--lapis);border-color:var(--lapis);color:var(--vellum)}
+
+/* ---------- sections ---------- */
+.band{padding:clamp(3rem,8vw,5.5rem) 0;border-top:1px solid var(--rule);scroll-margin-top:70px}
+.band.raised{background:var(--card)}
+.band > .wrap > h2{max-width:22ch}
+.section-head{margin-bottom:clamp(1.75rem,4vw,2.5rem)}
+.split{display:grid;gap:clamp(1.5rem,4vw,3.5rem);grid-template-columns:1fr}
+@media(min-width:820px){
+  .split{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);align-items:start}
+  .split .section-head{margin-bottom:0;position:sticky;top:92px}
+}
+.prose p{margin:0 0 1.1em}
+.prose p:last-child{margin-bottom:0}
+
+/* ---------- glossary of terms ---------- */
+.terms{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.terms li{padding:1.5rem 0;border-top:1px solid var(--rule)}
+.terms li:first-child{border-top:none;padding-top:0}
+.terms li:last-child{padding-bottom:0}
+.terms .term{
+  display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-bottom:.4rem;
+}
+.terms .term b{font-family:var(--display);font-weight:500;font-size:1.25rem}
+.terms .term i{
+  font-family:var(--util);font-style:normal;font-size:.66rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--gilt);
+}
+.terms p{margin:0;color:var(--muted)}
+
+/* ---------- news ---------- */
+.entries{display:grid;gap:0;margin-top:1rem}
+.entry{
+  display:grid;gap:.4rem 2rem;padding:1.75rem 0;border-top:1px solid var(--rule);
+}
+.entry:last-child{border-bottom:1px solid var(--rule)}
+@media(min-width:720px){
+  .entry{grid-template-columns:10rem minmax(0,1fr)}
+}
+.entry .meta{font-family:var(--util);font-size:.7rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gilt);padding-top:.35rem}
+.entry .meta span{display:block;color:var(--muted);letter-spacing:.14em;margin-top:.3rem}
+.entry h3{margin-bottom:.35rem}
+.entry p{margin:0;color:var(--muted)}
+.entry a.more{font-family:var(--util);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;display:inline-block;margin-top:.7rem}
+.feed-note{font-family:var(--util);font-size:.78rem;color:var(--muted);margin-top:1.5rem}
+
+/* ---------- links ---------- */
+.links{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+@media(min-width:700px){.links{grid-template-columns:1fr 1fr}}
+.links li{background:var(--vellum);padding:1.5rem}
+.band.raised .links li{background:var(--card)}
+.links a{
+  font-family:var(--display);font-size:1.15rem;text-decoration:none;
+  display:inline-flex;align-items:baseline;gap:.5rem;
+}
+.links a::after{content:"\2192";font-family:var(--util);font-size:.85rem;transition:transform .18s ease}
+.links a:hover::after{transform:translateX(4px)}
+.links p{margin:.45rem 0 0;font-size:.95rem;color:var(--muted)}
+
+/* ---------- enquiries ---------- */
+.routes{display:grid;gap:1.5rem;margin-top:2rem}
+@media(min-width:760px){.routes{grid-template-columns:repeat(3,1fr)}}
+.route{border-top:2px solid var(--ink);padding-top:1.1rem}
+.route h3{font-size:1.05rem;margin-bottom:.4rem}
+.route p{margin:0 0 .8rem;font-size:.95rem;color:var(--muted)}
+.route a{font-family:var(--util);font-size:.78rem;letter-spacing:.06em;word-break:break-word}
+
+/* ---------- footer ---------- */
+.foot{background:var(--ink);color:var(--vellum);padding:clamp(2.75rem,6vw,4rem) 0}
+.foot a{color:var(--vellum)}
+.foot .wrap{display:grid;gap:1.75rem;justify-items:center;text-align:center}
+.foot img{width:44px;filter:invert(1);opacity:.85}
+.foot .sig{font-family:var(--display);letter-spacing:.2em;text-transform:uppercase;font-size:.9rem}
+.foot small{font-family:var(--util);font-size:.72rem;letter-spacing:.06em;color:rgba(231,227,216,.62);line-height:1.9}
+
+@media(max-width:620px){
+  .masthead .wrap{flex-wrap:nowrap;gap:.75rem;min-height:56px}
+  .brand span{display:none}
+  .nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:.95rem;
+    -webkit-mask-image:linear-gradient(to right,#000 86%,transparent);mask-image:linear-gradient(to right,#000 86%,transparent)}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{white-space:nowrap;font-size:.7rem;letter-spacing:.1em}
+  .band{scroll-margin-top:56px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .seal .ring{animation:none}
+  *{transition-duration:.01ms !important}
+}
+</style>
+<style>
+.doc{padding:clamp(2.5rem,7vw,4.5rem) 0 clamp(3rem,8vw,5rem)}
+.doc-head{text-align:center;max-width:38rem;margin:0 auto clamp(2.5rem,6vw,4rem)}
+.doc-head img{width:clamp(52px,11vw,68px);margin:0 auto 2rem}
+.doc-head h1{font-size:clamp(2rem,1.3rem + 3vw,3.1rem);line-height:1.1;margin-bottom:1rem}
+.doc-head .sub{font-style:italic;color:var(--muted);margin:0 0 1.5rem;font-size:1.02em}
+.doc-head .issue{font-family:var(--util);font-size:.68rem;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gilt);line-height:1.9;margin:0}
+.paper{max-width:36rem;margin:0 auto}
+.paper h2{font-size:clamp(1.3rem,1.1rem + .7vw,1.6rem);line-height:1.25;
+  margin:clamp(2.4rem,5vw,3.2rem) 0 1.1rem;padding-top:1.4rem;border-top:1px solid var(--rule)}
+.paper h2:first-child{margin-top:0;padding-top:0;border-top:none}
+.paper h3{font-family:var(--display);font-weight:500;font-size:1.1rem;margin:2rem 0 .8rem}
+.paper p{margin:0 0 1.15em}
+.paper strong{font-weight:600}
+.paper hr{border:none;border-top:1px solid var(--rule);margin:2.5rem 0}
+.plate{margin:2.5rem 0;padding:0}
+.plate img{width:100%;border:1px solid var(--rule)}
+.plate figcaption{font-size:.88rem;color:var(--muted);margin-top:.9rem;line-height:1.55}
+.plate figcaption b{font-family:var(--display);font-weight:500}
+.plate a{text-decoration:none}
+.plate figcaption a{font-family:var(--util);font-size:.72rem;letter-spacing:.1em;
+  text-transform:uppercase;display:inline-block;margin-top:.5rem}
+.footnote{margin-top:clamp(2.5rem,6vw,3.5rem);padding-top:1.5rem;border-top:1px solid var(--rule);
+  font-size:.88rem;color:var(--muted)}
+.footnote hr{display:none}
+.footnote ol{padding-left:1.2rem;margin:0}
+.footnote li{margin-bottom:.9rem}
+.footnote li p{margin:0 0 .4em}
+.footnote-backref{text-decoration:none;margin-left:.3em}
+sup a{text-decoration:none;font-family:var(--util);font-size:.7em;padding:0 .1em}
+.doc-nav{max-width:36rem;margin:clamp(2.5rem,6vw,3.5rem) auto 0;padding-top:1.5rem;
+  border-top:1px solid var(--rule);display:flex;gap:1.5rem;flex-wrap:wrap}
+.doc-nav a{font-family:var(--util);font-size:.74rem;font-weight:500;letter-spacing:.13em;
+  text-transform:uppercase;text-decoration:none}
+.doc-nav a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="./mark.png" alt=""><span>Church of Barbelo</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#welcome">Welcome</a>
+      <a href="index.html#teaching">Teaching</a>
+      <a href="index.html#barbeline">The name</a>
+      <a href="index.html#news">News</a>
+      <a href="index.html#library">Library</a>
+      <a href="index.html#enquiries">Enquiries</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc wrap">
+  <div class="doc-head">
+    <img src="./mark.png" alt="">
+    <h1>Before the Umbrella</h1>
+    <p class="sub">On the &ldquo;Ophites,&rdquo; the Originator-Layer, and the Case for a Proto-Gnostic Reclassification</p>
+    <p class="issue">A working paper<br>The Pleroma Archive &middot; Church of Barbelo</p>
+  </div>
+
+  <article class="paper">
+
+
+<h2>Abstract</h2>
+<p>This paper makes a narrow claim and resists a broad one. The narrow
+claim: the ancient material conventionally sorted under the
+heresiological label <em>Ophite</em> is better understood not as the record of
+a discrete, self-identified sect but as a partial and hostile glimpse of
+what modern scholarship approaches through the Sethian and Barbeloite
+corpus. The label <em>Ophite</em> is an outsider taxonomy organised around
+serpent-symbolism; it is nowhere attested as a self-designation, and the
+accounts filed under it do not cohere into a single group. So far this
+is a reclassification, and it runs with the grain of recent scholarship
+rather than against it.</p>
+<p>The broad claim, which I hold more tentatively, is that this material
+represents an <em>originator-layer</em>: a stratum that underlies, and in at
+least some respects precedes, the more elaborated and more thoroughly
+Christianised systems (Valentinian, Basilidean, and others) that came to
+dominate the category <em>Gnostic</em> itself. I propose the term
+<em>proto-Gnostic</em> for this layer, in a deliberately restricted sense: not
+&ldquo;the earliest form that existed&rdquo; (which is beyond recovery) but &ldquo;the
+earliest form we can reconstruct,&rdquo; named for its position in sequence
+rather than for any claim to doctrinal correctness or to authority over
+what grew from it. The priority element of this claim rests on contested
+readings of Irenaeus and on Turner&rsquo;s redactional analysis of the Sethian
+corpus, and it should be received as an argued reading of the evidence,
+not as a settled result.</p>
+<p>Because a reclassification is only as good as the classification it
+offers in place of the one it rejects, Section 5 sets out a positive
+scheme: four strata resting on a pre-Gnostic substrate, sorted by each
+layer&rsquo;s relation to what precedes it,
+distinguishing assembly from elaboration, elaboration from carriage, and
+carriage from recovery. Where the essay reconstructs rather than
+attests, it says so.</p>
+<h2>1. Two labels of different orders</h2>
+<p>The central confusion this paper addresses is that two terms of entirely
+different kinds have been treated as if they were interchangeable names
+for one thing. They are not.</p>
+<p>&ldquo;Ophite&rdquo; (from the Greek <em>ophis</em>, serpent) is a <strong>taxonomic tag</strong>. It
+sorts groups by a single visible feature, the presence of
+serpent-symbolism, and it was applied from the outside, by hostile
+heresiologists, to a range of groups that may have had little
+organisational connection to one another. Irenaeus, Origen (quoting
+Celsus), and Epiphanius all deploy it, and they do not deploy it
+consistently. It is a filing category, not an identity.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+<p>&ldquo;Proto-Gnostic,&rdquo; by contrast, is a <strong>priority claim</strong>. It asserts a
+position in a sequence: this is the earliest reconstructible form, the
+layer upon which later systems were built. It says nothing about
+serpents, nothing about correctness, and nothing about institutional
+continuity. It is a claim about <em>order</em>, and it can be argued from
+evidence or abandoned in the face of it.</p>
+<p>Treating a taxonomic tag as though it were a priority claim, assuming
+that because a body of material was filed under &ldquo;Ophite&rdquo; there existed a
+self-conscious &ldquo;Ophite&rdquo; group with a coherent doctrine, is the error
+this paper is built to avoid. The reclassification proposed here is not
+a rebranding of one named sect into a nicer name. It is the argument
+that the material mis-sorted under an outsider tag belongs, on the
+evidence, to the originator-stratum of the tradition.</p>
+<h2>2. The base layer predates Christianity</h2>
+<p>The raw conceptual materials of gnostic thought are demonstrably older
+than Christianity and circulate independently of it. This is the least
+controversial part of the argument.</p>
+<p>The serpent as a figure of wisdom rather than temptation is widespread
+across the ancient Near East and the Hellenistic world: the bronze
+serpent (Nehushtan) of the Hebrew Bible, the Agathodaemon of Hellenistic
+Egypt, and serpent-symbolism across Egyptian and Mesopotamian religion
+all stand independent of any Christian or even any gnostic frame.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> A
+dualist cosmology featuring a flawed, ignorant, or subordinate
+creator-figure likewise has pre-Christian roots: the demiurge of Middle
+Platonism, Zoroastrian dualism, and the heterodox exegesis of Genesis
+found in some strands of Second Temple Judaism all supply pieces of the
+eventual gnostic architecture.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup></p>
+<p>In other words, the load-bearing components are all in circulation
+before the events that Christianity organises itself around: the serpent
+as liberator, a creator who is not the true God, and secret knowledge as
+the mechanism of salvation. What this section establishes, however, is
+the pre-Christian availability of the <em>components</em>, not the
+pre-Christian existence of the assembled <em>system</em>. Scattered ingredients
+are not yet a cosmology; a fallen Sophia, a named Demiurge, and a graded
+aeonic hierarchy welded into one myth is a further step, and the
+priority of <em>that</em> synthesis is argued separately, and more cautiously,
+in the sections that follow. The base layer of materials is not in
+dispute. What is in dispute is when the system was assembled, what
+happened to it, and under what name.</p>
+<h2>3. What the sources actually say about the name</h2>
+<p>Here the evidence tightens, and it points in a direction that is
+initially counter-intuitive but ultimately strengthens the
+reclassification argument.</p>
+<h3>3.1 &ldquo;Gnostic&rdquo; as the older name</h3>
+<p>It is tempting to imagine a clean sequence in which an original group is
+branded &ldquo;Ophite&rdquo; by outsiders while later, more Christian sects adopt
+the prestige-name &ldquo;Gnostic.&rdquo; The sources do not support this. If
+anything, they invert it.</p>
+<p>Irenaeus, writing around 180 CE in <em>Against Heresies</em>, is the first
+author to use <em>Gnostikoi</em> as a proper name for a specific sect rather
+than as the ordinary Greek adjective meaning &ldquo;learned&rdquo; or
+&ldquo;intellectual.&rdquo; Crucially, in his own account (Adv. Haer. 1.11.1) he
+reports that Valentinus adapted his system from &ldquo;the sect called
+<em>gnostikē</em>&rdquo;. That is, in Irenaeus&rsquo;s telling, a group already bearing the
+name &ldquo;Gnostic&rdquo; existed <em>before</em> Valentinus, and Valentinus built upon
+it.<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup> The material that this prior group is said to have taught, an
+emanationist Father-Mother-Son structure, a fallen Sophia, an ignorant
+Demiurge, is precisely the cosmological architecture that modern
+scholarship files under the Sethian, Barbeloite, or &ldquo;Ophite&rdquo; family.<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup></p>
+<p>There is also a strong inference, made by more than one modern reader,
+that Irenaeus would not have called his opponents &ldquo;Gnostics&rdquo; unless they
+were already known by that name; to concede a prestige-term like &ldquo;the
+knowers&rdquo; to one&rsquo;s enemies weakens the polemic, so its use suggests the
+label was already current and not his to withhold. His own title, a
+refutation of &ldquo;knowledge falsely so-called,&rdquo; trades on exactly this: he
+is turning <em>their</em> word against them.<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup></p>
+<h3>3.2 &ldquo;Ophite&rdquo; as a later, external tag</h3>
+<p>&ldquo;Ophite&rdquo; is never attested as anyone&rsquo;s self-designation, at any point in
+the record. It appears only as an outside classifier. Hippolytus is
+instructive here: he does not call the serpent-associated group he
+documents at length &ldquo;Ophite&rdquo; at all. He reports that they called
+themselves simply <em>Gnostikoi</em>, and he applies to them his own coinage,
+&ldquo;Naassene&rdquo; (from the Hebrew <em>nachash</em>, serpent), reserving &ldquo;Ophite&rdquo; for
+a different and smaller group he also names Cainites and dismisses as
+not worth further discussion.<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup></p>
+<p>So both &ldquo;Ophite&rdquo; and &ldquo;Naassene&rdquo; are outsider vocabulary. The difference
+in tone is real but subtle: &ldquo;Naassene&rdquo; at least uses the community&rsquo;s own
+conceptual key (the serpent as a Hebrew source-word) and comes attached
+to an account in which the group is allowed to explain itself at length,
+whereas &ldquo;Ophite&rdquo; functions as a flattening catch-all, &ldquo;the snake
+people,&rdquo; assembled by writers whose purpose was to catalogue and
+dismiss.</p>
+<h3>3.3 Whether the &ldquo;Ophites&rdquo; existed at all</h3>
+<p>There is live scholarly doubt as to whether &ldquo;the Ophites&rdquo; were ever a
+coherent, self-identified body rather than a heresiological abstraction:
+a category built by Irenaeus and his successors to organise scattered
+material under one convenient heading.<sup id="fnref:8"><a class="footnote-ref" href="#fn:8">8</a></sup> Far from undermining the
+present argument, this doubt <em>feeds</em> it, but only up to a point, and it
+is worth being exact about which point. The doubt supports the <em>narrow</em>
+claim: if the outsider tag never named a real self-conscious group, then
+&ldquo;what was the material filed under this tag actually part of?&rdquo; becomes
+the right question, and reclassifying it toward the Sethian-Barbeloite
+family is the natural answer. The doubt does <em>not</em> by itself support the
+<em>broad</em> claim that this material is chronologically first; incoherence
+of a category is evidence about the category, not about priority. Those
+two claims are kept apart deliberately throughout this paper, because
+collapsing them would let the argument treat both supporting and
+contrary evidence as confirmation, a move that proves too much and
+should be resisted.</p>
+<h2>4. The eclipse of the originators</h2>
+<p>The eclipse this paper proposes can be stated by analogy, with the
+analogy&rsquo;s limits marked, and then restated as the tentative reading it
+actually is.</p>
+<p>Consider the trajectory of &ldquo;Protestant.&rdquo; A first movement arises with a
+specific identity. Later, distinct movements form, related but
+doctrinally divergent, often more elaborated. A classifier term comes to
+cover all of them. In practice the classifier becomes associated with
+the later, larger, better-surviving movements, because they are the ones
+with reach and staying power. The originating movement ends up either
+absorbed into the umbrella and stripped of distinct identity, or pinned
+with a narrower sub-label, and frequently it does not survive as a named
+living tradition in its own right. Today &ldquo;Protestant&rdquo; evokes the
+sprawling later ecosystem; the specific originating moment is one branch
+among many, not the whole.</p>
+<p>The analogy is offered for its <em>shape</em> only, and its limit must be
+stated before it is misread as more. The Protestant case has
+<em>documentary continuity</em>: we can read Luther, date the founding texts,
+and trace each branch through a continuous record. The gnostic case has
+the opposite: fragments preserved through hostile filters, with no
+continuous documentary line from originators to successors. So the
+analogy illustrates only the <em>mechanism</em> by which an umbrella term
+eclipses the movement that spawned it; it emphatically does <em>not</em> imply
+that the gnostic case rests on Protestant-level evidence. If anything it
+marks how much thinner the gnostic record is. The structural pattern is
+the borrowed thing; the evidential footing is separate, weaker, and
+argued on its own terms elsewhere in this paper.</p>
+<p>The same shape may fit the gnostic material, with one correction to the
+naive version. On the reading defended in Section 3, a founding
+gnosis-holding group already carried the name <em>Gnostikoi</em> (a reading
+that is, as noted there, contested). Later, Valentinus, Basilides,
+Marcion, and others build divergent, more thoroughly Christianised
+systems, each with its own name (Valentinians, Basilideans, and so on).
+The term &ldquo;gnostic&rdquo; is then stretched, largely by hostile heresiologists,
+into an umbrella over all of them. In that stretching, the founding
+group&rsquo;s specific identity is submerged: partly absorbed under the
+umbrella, partly pinned with outsider tags (&ldquo;Ophite,&rdquo; &ldquo;Naassene,&rdquo;
+&ldquo;Barbeloite&rdquo;), and, on this account, largely lost as a going concern,
+surviving mainly as fragments quoted by its enemies.</p>
+<p>The correction to the naive version is this: the movement here is <em>not</em>
+&ldquo;originals relabelled Ophite while newcomers took the name Gnostic.&rdquo; It
+is &ldquo;the originals <em>were</em> the Gnostics; the name was then stretched to
+cover a wave of later systems; and in that stretching the originators&rsquo;
+identity was submerged and eventually lost, surviving under outsider
+tags.&rdquo; The eclipse is the same. The naming order is the reverse of the
+intuitive guess, and the argument is stronger for not resting on the one
+point the sources contradict.</p>
+<h2>5. A stratified taxonomy</h2>
+<p>Sections 1 to 4 are subtractive. They argue that a category is ill-formed and that a body of material has been mis-sorted under it. That leaves the obvious question unanswered: if not this, then what? A reclassification is only as good as the classification it puts in place of the one it rejects, and this section sets out the positive scheme.</p>
+<p>It sorts the material into four strata, resting on a pre-Gnostic substrate, by a single criterion: each layer&rsquo;s <em>relation to what precedes it</em>. Not doctrine, not geography, not attitude to Christ, but what each stratum did with what it inherited. The criterion is doing the work here, and it is what distinguishes the scheme from another list of sects.</p>
+<h3>5.1 The strata</h3>
+<p><strong>Pre-Gnostic substrate</strong> (c. 6th c. BCE to 1st c. CE). Not gnostic, and not a stratum of the tradition proper: the reservoir of materials from which the tradition was later assembled. Enochic apocalyptic, Qumran-Essene dualism, Merkabah ascent through gated heavens, Philonic allegory, Middle Platonism (Numenius in particular), Iranian dualism, and the suppressed serpent-cult behind Nehushtan. Section 2 established that these components are pre-Christian and independently attested. Their place in the scheme is as ingredients, and the distinction between ingredients and assembly is the load-bearing joint of the whole paper.</p>
+<p><strong>Proto-Gnostic</strong> (1st c. CE). The earliest stratum at which the components appear <em>assembled</em> into a working system: an unknown God beyond the cosmos, a subordinate and ignorant world-maker, a spark of the divine held in matter, salvation by knowledge rather than by belief or by works, and a revelatory inversion of Genesis in which the serpent tells the truth. Minimally Christian, or not Christian at all. Here belong the Sethian and Barbeloite material, the accounts filed under &ldquo;Ophite&rdquo; and &ldquo;Naassene,&rdquo; and the figures the heresiologists themselves place earliest: Simon Magus and the Simonians, Menander, Saturninus of Antioch.</p>
+<p><strong>Post-Christo</strong> (2nd c. CE). Systems that take the assembled cosmology and rebuild it around Christ as the central salvific fact, in open institutional competition with what became orthodoxy. Valentinus and the Italic and Oriental schools after him, Basilides and the Basilideans, the Marcosians, the Carpocratians, the Bardaisanites. The term is descriptive, and it is about <em>organisation</em> rather than chronology: what makes a system post-Christo is that Christ has become the principle around which the cosmology is arranged, not merely that it was composed after him. Cerinthus and Marcion sit at the edge of this stratum rather than inside it, and are better marked as dualist-adjacent than filed within it.</p>
+<p><strong>Transmission</strong> (3rd to 14th c.). The stratum most often absent from accounts of this material, and its absence is a principal reason flat taxonomies become incoherent. Here the cosmology hardens into standalone religions and travels. Manichaeism is the great instance: a world religion with its own canon, hierarchy and missionary apparatus, running from Roman Africa to Tang China.<sup id="fnref:t1"><a class="footnote-ref" href="#fn:t1">10</a></sup> With it belong the western dualist movements, Priscillianism in fourth-century Iberia, the Paulicians in Armenia, the Bogomils in the Balkans, and the Cathars in Languedoc. What distinguishes this stratum is neither elaboration inside the ancient milieu nor recovery from texts, but <em>carriage</em>: a dualist structure moved across geography and centuries by living communities.</p>
+<p>Mandaeism belongs here as well, and it is the exception the scheme must accommodate rather than explain away: the one current that never died and therefore never needed reconstructing.<sup id="fnref:t2"><a class="footnote-ref" href="#fn:t2">11</a></sup> Any account of this tradition that treats it as uniformly extinct is refuted by the continuous existence of Mandaean communities into the present.</p>
+<p><strong>Reconstructionist</strong> (1890 to the present). Recovery from texts rather than transmission, and the difference is categorical rather than one of degree. Jules Doinel&rsquo;s Église Gnostique (1890) and its descendants, among them the Ecclesia Gnostica Catholica and the Apostolic Johannite Church, reconstruct from heresiological report and, after 1945, from the Nag Hammadi codices. What they inherit is not a lineage but a library. This is worth stating plainly, because bodies in this stratum frequently claim apostolic succession, and the claim confuses a layer defined by recovery with one defined by carriage.</p>
+<h3>5.2 What the scheme buys, and what it does not</h3>
+<p>The scheme distinguishes four operations that flat taxonomies collapse into one: <strong>assembly</strong> (proto-Gnostic), <strong>elaboration</strong> (post-Christo), <strong>hardening and carriage</strong> (transmission), and <strong>recovery</strong> (reconstructionist). A classification that files Valentinus, the Cathars and a twentieth-century Los Angeles bishop under a single heading is not describing a single kind of thing, and the resulting category tells a reader almost nothing about any member of it.</p>
+<p>The strata are analytic, however, not sealed, and several boundaries are genuinely fuzzy. Whether the Simonian material is early or a retrojection by heresiologists looking for a founder is unsettled. Marcion&rsquo;s inclusion in any gnostic scheme is disputed on good grounds. Most substantially, the Paulician to Bogomil to Cathar line, drawn above as continuous transmission, is the subject of a considerable revisionist literature holding that Catharism was in large part a construct of the inquisitors who described it, and that western dualism owed far less to eastern transmission than the older accounts assumed.<sup id="fnref:t3"><a class="footnote-ref" href="#fn:t3">12</a></sup> Mandaean origins are likewise unresolved.</p>
+<p>Accordingly the scheme should be received at the middle of the three confidence levels set out at the end of this paper. The substrate-to-proto boundary is load-bearing and is argued in Sections 2, 3 and 6. The remaining divisions are organisational: they can be revised, or the placement of any individual group within them contested, without disturbing the argument of Sections 1 to 4.</p>
+<figure class="plate">
+  <a href="lineage-map.html"><img src="./figure1.jpg" alt="A five-band lineage diagram of the gnostic currents, from the pre-Gnostic substrate through proto-Gnostic, post-Christo, transmission and reconstructionist strata."></a>
+  <figcaption><b>Figure 1.</b> The descent of gnosis: four strata of gnostic current on a pre-Gnostic substrate. Solid arrows mark generally accepted descent or direct influence; dashed arrows mark contested or reconstructed transmission. Orange border marks the Ophite material at issue in this paper; teal marks Mandaeism, the one unbroken survival.  <a href="lineage-map.html">Open the interactive version &rarr;</a></figcaption>
+</figure>
+<h2>6. The corroborating stratigraphy: Sethian redactional layers</h2>
+<p>The priority-claim embedded in &ldquo;proto-Gnostic&rdquo; does not rest on Irenaeus
+alone. It finds independent support in the redactional analysis of the
+Nag Hammadi Sethian corpus, associated especially with the work of John
+D. Turner.<sup id="fnref:9"><a class="footnote-ref" href="#fn:9">9</a></sup></p>
+<p>Several Sethian-family texts, among them <em>Zostrianos</em>, <em>Allogenes</em>, the
+<em>Three Steles of Seth</em>, contain little or no Christian content and read,
+on their own terms, as Jewish-Platonist philosophical ascent texts.
+Others in the same family, such as the <em>Apocryphon of John</em>, the
+<em>Hypostasis of the Archons</em>, present what looks like that same
+underlying cosmology with a Christian narrative frame added over it. On
+Turner&rsquo;s analysis, the pattern of a non-Christian (or barely-Christian)
+base receiving later Christian elaboration is not merely inferred from a
+heresiologist&rsquo;s aside; it is argued from a spectrum <em>within</em> a single
+surviving corpus.</p>
+<p>Two honest limits attach to this. First, the surviving manuscripts are
+fourth-century Coptic; the earlier, less-Christian strata are
+<em>reconstructed</em>, and both Turner&rsquo;s redactional layering and the
+pre-Christian dating it implies are contested rather than settled.
+Second, &ldquo;seems to antedate&rdquo; is Turner&rsquo;s own hedge, and the priority
+element of the present argument inherits that hedge rather than escaping
+it. The corpus shows, at minimum, that a Christian frame could be
+<em>added</em> to a cosmology that also circulated with little or none; whether
+the un-Christian version is chronologically prior in every case is a
+further inference, held here with corresponding caution.</p>
+<p>This matters for terminology. The stratigraphy is real and documented,
+but in the scholarship it is filed under <em>Sethian</em> (itself a modern
+analytic category, not an ancient self-designation) rather than under
+&ldquo;Ophite.&rdquo; The honest position is that &ldquo;Sethian,&rdquo; &ldquo;Ophite,&rdquo; and
+&ldquo;Barbeloite&rdquo; are overlapping modern and ancient attempts to name a
+family of related material whose internal boundaries were never as clean
+as any single label implies. &ldquo;Proto-Gnostic&rdquo; is offered here not as a
+replacement for these but as a term for the <em>earliest recoverable layer</em>
+that several of them are independently reaching toward.</p>
+<p>A caveat on the term itself, since it is not new. &ldquo;Proto-Gnostic&rdquo;
+already circulates in the literature, most often applied loosely to
+first-century figures such as Simon Magus and Menander, or to a diffuse
+pre-Valentinian tendency. I do not claim to have coined it, and I use it
+in a narrower and more specific sense than that loose usage: not &ldquo;any
+early stirring that anticipates Gnosticism,&rdquo; but &ldquo;the earliest
+reconstructible form of the assembled Sethian-Barbeloite cosmology,
+prior to its more Christianised elaborations.&rdquo; The two senses should not
+be conflated, and the argument here stands or falls on the narrower one.</p>
+<h2>7. Why &ldquo;proto-&rdquo; and not &ldquo;orthodox&rdquo;</h2>
+<p>A tempting alternative is to name this layer the <em>orthodox</em> gnosis, both
+to assert its primacy and, more pointedly, to reclaim a word that the
+eventually-dominant Church used to brand these very predecessors as
+heretics. The impulse is understandable, and as a <em>rhetorical</em> move it
+has real force. But as a <em>name</em> it introduces a confusion that undoes
+the work of Section 1.</p>
+<p>&ldquo;Orthodox&rdquo; (from <em>orthos</em> + <em>doxa</em>, &ldquo;right opinion&rdquo;) is a
+<strong>correctness</strong> word. It inherently claims to be the right version,
+defined against deviation, and it therefore smuggles in a claim of
+authority over the other branches, the very thing a priority-argument
+does not need and should not assert. What the reclassification actually
+claims is not <em>correctness</em> but <em>priority</em>: this is the base form, the
+layer before the additions, the game before its expansions rather than
+the game played correctly. A base version is not the <em>right</em> version of
+the elaborated one; it is the <em>prior</em> one. That is a claim about
+sequence, and &ldquo;proto-&rdquo; carries it exactly.</p>
+<p>There is a further honesty in &ldquo;proto-&rdquo; that &ldquo;original&rdquo; slightly
+overstates: we do not, and largely cannot, know with certainty what
+stood before the earliest layer we can actually reconstruct.
+&ldquo;Proto-Gnostic&rdquo; claims only to name <em>the earliest form we can know</em>.
+This is not an assertion that nothing preceded it, but an
+acknowledgement that this is where the recoverable record begins. That
+epistemic modesty is a feature, not a hedge.</p>
+<h2>8. A note on living use</h2>
+<p>The foregoing is a historiographical argument, and it stands or falls on
+the evidence regardless of what any present-day community does with it.
+This closing section steps deliberately outside that frame to note what
+the argument means for a living tradition that would take up this layer
+as its own. What follows is <em>stance</em>, not scholarship, and it is marked
+as such. A reader who wishes to weigh only the argument may stop at the
+preceding section without loss.</p>
+<p>Three things follow, and it is worth stating them in order of how much
+they claim.</p>
+<p>The <strong>name</strong>. Section 5.1 places any body founded in the present day in
+the reconstructionist stratum, and a community taking up this material
+must accept that placement rather than talk its way around it. What it
+recovers is a layer; what it is, is a recovery. A church of this kind
+recovers the proto-Gnostic layer; it does not occupy it, and the
+distinction is not a technicality. It is the difference between a claim
+that can be assessed and a claim of continuity that cannot be
+substantiated. For the tradition itself the working adjective is
+<em>Barbeline</em>, an anglicisation of the ancient <em>Barbeliotae</em>: an outsider
+word, like the others surveyed here, but one that names the group by
+what it revered rather than by what revolted the observer, and one that
+lands on the actual cosmology rather than on a single symbol within it.
+There is a further reason for it. The Invisible Spirit is by definition
+unnameable, so a tradition cannot take its name from the Monad without
+contradicting its own first teaching. Barbelo is the first term in the
+system that admits of a name at all.</p>
+<p>The <strong>posture</strong>. A tradition does not need to call itself &ldquo;the orthodox&rdquo;
+in order to resist. The declaration made in the face of the archon, <em>I
+am from the light; I do not belong to you; I pass by right of what I
+already am</em>, is the resistance, expressed as testimony rather than as a
+claim to rule over other traditions. Priority in the name and defiance
+in the practice: a priority-name makes a historical claim that anyone is
+free to weigh, where a correctness-name would install a &ldquo;this is the
+right form&rdquo; posture at the centre of a community that has deliberately
+declined to build such a centre.</p>
+<p>The <strong>scope</strong>. Two limits, and both are consequences of the argument
+rather than additions to it. First, the unification proposed here runs
+downward within a single stratum and no further: the Sethian,
+Barbeloite, Naassene and so-called Ophite material are overlapping
+attempts to name one family, as Section 6 argues, and treating them as
+one is a refusal of three filing systems rather than a merger of three
+traditions. To extend the same gesture across strata, gathering the
+Valentinian, transmission and reconstructionist material under one
+banner, would rebuild precisely the umbrella this paper has spent six
+sections dismantling.</p>
+<p>Second, the layer this material describes is the one that stands prior
+to the Christian frame, and a community working from it will find no
+single saviour in it. That is a statement about the layer, not a verdict
+on any person: the argument of Sections 5 and 6 concerns what was
+assembled before an overlay was added, and a tradition may take up the
+base without needing to adjudicate the overlay. It should be said
+plainly, however, that the priority of the un-Christianised material is
+the contested tier of this paper&rsquo;s confidence scale and not the
+established one. A community may reasonably orient itself toward a
+reconstruction while holding the dating of that reconstruction open.</p>
+<h2>A note on evidence and reconstruction</h2>
+<p>The claims in this paper sit at three different levels of confidence,
+and it is worth stating them plainly. <strong>Well established</strong>: that the
+conceptual <em>components</em> predate Christianity (Section 2). <strong>Defensible
+from the sources</strong>: that &ldquo;Ophite&rdquo; is unattested as a self-designation
+and does not name a coherent group (Sections 1, 3.2, 3.3), and that a
+Christian frame was in some cases added to a cosmology that also
+circulated with little or none (Section 6). This is the narrow
+reclassification, and it runs with the grain of Williams, King, Rasimus,
+and Turner rather than against them. <strong>Argued but contested</strong>: that this
+material is chronologically <em>prior</em> to the more Christianised systems,
+and so warrants the priority sense of &ldquo;proto-Gnostic&rdquo; (the reading of
+Irenaeus in 3.1, and the inference from Turner in Section 6). The stratified taxonomy of Section 5 sits at this middle level as a
+whole, with individual placements within it varying. This last
+is a reading of the evidence, not a datum; it rests on contested points,
+and it should be received and contested as such. The paper&rsquo;s aim is not
+to settle the priority question but to separate it cleanly from the
+reclassification it does not depend on, so that a reader may accept the
+second while withholding judgement on the first.</p>
+<h2>Works cited</h2>
+<p><em>Primary sources are cited by standard section number and are
+independent of any particular translation. Where an English wording is
+quoted above it follows the Ante-Nicene Fathers (ANF) editions unless
+otherwise noted.</em></p>
+<h3>Primary</h3>
+<p>Epiphanius of Salamis. Panarion, esp. 37 (Ophites) and 38 (Cainites).</p>
+<p>Hippolytus (attrib.). Refutation of All Heresies (Philosophumena), esp.
+Book V.6&ndash;11 (Naassenes) and V.10 (the Naassene hymn); VIII.20
+(Ophites/Cainites).</p>
+<p>Irenaeus of Lyons. Against Heresies (Adversus Haereses), esp. 1.11.1
+(Valentinus and the &ldquo;so-called Gnostic&rdquo; school), 1.29&ndash;1.31
+(Barbeloite/Sethian material), and 1.30 (the group later labelled
+Ophite). Composed c. 180 CE.</p>
+<p>Origen. Contra Celsum VI.24&ndash;38 (the Ophite diagram, quoting and
+refuting Celsus, True Doctrine, c. 178 CE).</p>
+<p>The Apocryphon of John (NHC II,1; III,1; IV,1; Berlin Codex BG 8502);
+The Hypostasis of the Archons (NHC II,4); Zostrianos (NHC VIII,1);
+Allogenes (NHC XI,3); The Three Steles of Seth (NHC VII,5). In J. M.
+Robinson (ed.), The Nag Hammadi Library in English, rev. ed. (HarperOne,
+1990).</p>
+<h3>Secondary</h3>
+<p>Baker-Brian, Nicholas J. Manichaeism: An Ancient Faith Rediscovered.
+T&amp;T Clark, 2011.</p>
+<p>Brakke, David. The Gnostics: Myth, Ritual, and Diversity in Early
+Christianity. Harvard University Press, 2010.</p>
+<p>Buckley, Jorunn Jacobsen. The Mandaeans: Ancient Texts and Modern
+People. Oxford University Press, 2002.</p>
+<p>King, Karen L. What Is Gnosticism? Harvard University Press, 2003.</p>
+<p>Kok, Michael J. &ldquo;Did &lsquo;The Gnostic Heresy&rsquo; Influence Valentinus? An
+Investigation of Irenaeus, Against Heresies 1.11.1 and 1.29.&rdquo; Vigiliae
+Christianae 78, no. 2 (2024): 138&ndash;169.</p>
+<p>Layton, Bentley. The Gnostic Scriptures. Doubleday, 1987.</p>
+<p>Moore, R. I. The War on Heresy: Faith and Power in Medieval Europe.
+Harvard University Press, 2012.</p>
+<p>Pegg, Mark Gregory. A Most Holy War: The Albigensian Crusade and the
+Battle for Christendom. Oxford University Press, 2008.</p>
+<p>Rasimus, Tuomas. Paradise Reconsidered in Gnostic Mythmaking: Rethinking
+Sethianism in Light of the Ophite Evidence. Nag Hammadi and Manichaean
+Studies 68. Brill, 2009.</p>
+<p>Rudolph, Kurt. Gnosis: The Nature and History of Gnosticism. Trans. R.
+McL. Wilson. Harper &amp; Row, 1983.</p>
+<p>Turner, John D. Sethian Gnosticism and the Platonic Tradition.
+Bibliothèque copte de Nag Hammadi, Section «Études» 6. Quebec: Presses
+de l&rsquo;Université Laval; Louvain/Paris: Peeters, 2001.</p>
+<p>Williams, Michael A. Rethinking &lsquo;Gnosticism&rsquo;: An Argument for
+Dismantling a Dubious Category. Princeton University Press, 1996.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>The principal witnesses to the serpent-associated material later
+filed as &ldquo;Ophite&rdquo; are: Irenaeus, Against Heresies 1.30 (the group he
+does not there name &ldquo;Ophite&rdquo; but which later tradition so labels);
+Origen, Contra Celsum VI.24&ndash;38 (describing and refuting a ritual
+diagram quoted from Celsus&rsquo;s lost True Doctrine, c. 178 CE); and
+Epiphanius, Panarion 37 (the Ophites proper) and 38 (Cainites). The
+inconsistency among these accounts is itself a main reason for
+doubting that a single coherent &ldquo;Ophite&rdquo; sect stands behind them.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>For Nehushtan, Numbers 21:8&ndash;9 and 2 Kings 18:4 (where Hezekiah
+destroys the bronze serpent that had become an object of cult). For
+the Agathodaemon and Graeco-Egyptian serpent symbolism, see e.g. the
+survey in K. Rudolph, Gnosis: The Nature and History of Gnosticism
+(English tr., 1983).&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>The term demiourgos (&ldquo;craftsman&rdquo;) as a subordinate world-maker
+derives from Plato, Timaeus 28a&ndash;29a, and was elaborated in Middle
+Platonism before its gnostic adaptation. On Second Temple Jewish
+heterodox exegesis as a matrix for gnostic thought, see A. Y. Reed
+and others; the point is broadly accepted even where specific
+genealogies are disputed.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>Irenaeus, Against Heresies 1.11.1. In the standard English (ANF)
+rendering, Valentinus &ldquo;adapted the principles of the heresy called
+Gnostic to the peculiar character of his own school.&rdquo; The Greek
+phrase is he legomene gnostike hairesis, &ldquo;the so-called Gnostic
+school/school-of-thought.&rdquo; This reading is, however, contested: a
+significant strand of recent scholarship (e.g. B. Layton and D.
+Brakke, who treat a discrete &ldquo;Gnostic&rdquo; group as historically real,
+versus critics such as the argument set out in M. J. Kok, &ldquo;Did &lsquo;The
+Gnostic Heresy&rsquo; Influence Valentinus?&rdquo;, Vigiliae Christianae 78.2
+[2024]) disputes whether the phrase designates an actual
+self-identified social group whose theology is preserved in Adv.
+Haer. 1.29, or merely a loose heresiological label. The
+priority-claim in this paper leans on the first reading and should
+be understood as contestable on this point.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>The Barbeloite/Sethian material Irenaeus summarises at Adv. Haer.
+1.29 corresponds closely to the Apocryphon of John (NHC II,1; III,1;
+IV,1; and BG 8502), the fullest surviving witness to this cosmology.&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>The full title of Irenaeus&rsquo;s treatise is On the Detection and
+Overthrow of Knowledge Falsely So-Called (Elenchos kai anatrope tes
+pseudonymou gnoseos), itself echoing 1 Timothy 6:20. The inference
+that Irenaeus would not have conceded the prestige-term &ldquo;Gnostic&rdquo; to
+opponents unless it was already their currency is argued in, among
+others, D. Brakke, The Gnostics: Myth, Ritual, and Diversity in
+Early Christianity (Harvard University Press, 2010). It remains an
+inference, not a datum.&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p>Hippolytus, Refutation of All Heresies (Philosophumena) Book V,
+esp. chs. 6&ndash;11 for the Naassenes; the reservation of &ldquo;Ophite&rdquo; for a
+separate, minor group linked with the Cainites is at VIII.20. The
+Naassene hymn/psalm is quoted at V.10. Note that the attribution of
+the Refutation to Hippolytus of Rome is itself debated. The
+derivation of &ldquo;Naassene&rdquo; from Hebrew nachash (serpent) is
+Hippolytus&rsquo;s own.&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:8">
+<p>This scepticism is part of a broader turn against &ldquo;Gnosticism&rdquo; as
+a stable analytic category, most prominently M. A. Williams,
+Rethinking &lsquo;Gnosticism&rsquo;: An Argument for Dismantling a Dubious
+Category (Princeton University Press, 1996), and K. L. King, What Is
+Gnosticism? (Harvard University Press, 2003). On the specific
+incoherence of the &ldquo;Ophite&rdquo; grouping across the heresiologists, see
+T. Rasimus, Paradise Reconsidered in Gnostic Mythmaking: Rethinking
+Sethianism in Light of the Ophite Evidence (Brill, 2009).&#160;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:9">
+<p>J. D. Turner, Sethian Gnosticism and the Platonic Tradition,
+Bibliothèque copte de Nag Hammadi, Section «Études» 6 (Quebec:
+Presses de l&rsquo;Université Laval; Louvain/Paris: Peeters, 2001). Turner
+analyses the eleven Nag Hammadi treatises he classes as Sethian and
+reconstructs the movement across pre-Christian, Christian, and
+post-Christian phases, arguing that Sethianism seems to antedate the
+Christian school of Valentinus (c. 120&ndash;160 CE) and that several of
+its treatises follow &ldquo;descent&rdquo; versus &ldquo;ascent&rdquo; redactional patterns.
+&ldquo;Sethian&rdquo; is Turner&rsquo;s modern analytic grouping, not an ancient
+self-designation.&#160;<a class="footnote-backref" href="#fnref:9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:t1">
+<p>On Manichaeism as a fully independent religion rather than a
+gnostic school, see N. J. Baker-Brian, Manichaeism: An Ancient Faith
+Rediscovered (T&amp;T Clark, 2011), and the survey in K. Rudolph, Gnosis
+(English tr., 1983), part 4. Its geographic range, from Roman North
+Africa to Tang-dynasty China, is itself the argument for treating
+carriage as a distinct operation.&#160;<a class="footnote-backref" href="#fnref:t1" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:t2">
+<p>On Mandaean continuity, see J. J. Buckley, The Mandaeans: Ancient
+Texts and Modern People (Oxford University Press, 2002), which
+reconstructs Mandaean scribal transmission across roughly a
+millennium from colophon evidence. Mandaean origins remain disputed;
+the continuity of the community into the modern period does not.&#160;<a class="footnote-backref" href="#fnref:t2" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:t3">
+<p>The revisionist case is made most forcefully in R. I. Moore, The
+War on Heresy (Harvard University Press, 2012), and M. G. Pegg, A
+Most Holy War (Oxford University Press, 2008), both arguing that
+&ldquo;Catharism&rdquo; as an organised dualist church was substantially
+constructed by its persecutors. The older transmission model is
+defended by B. Hamilton and others. The line drawn in the figure
+follows the traditional account and should be read as contested.&#160;<a class="footnote-backref" href="#fnref:t3" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+  </article>
+
+  <p class="doc-nav">
+    <a href="Before_the_Umbrella.docx">Download as .docx</a>
+    <a href="lineage-map.html">The lineage map</a>
+    <a href="index.html#library">&larr; Back to the Library</a>
+  </p>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <img src="./mark.png" alt="">
+    <p class="sig">The Church of Barbelo</p>
+    <small>&copy; <span id="year">2026</span> The Church of Barbelo. All rights reserved.<br>
+      Companion project: <a href="https://example.github.io/pleroma-archive/">The Pleroma Archive</a></small>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
