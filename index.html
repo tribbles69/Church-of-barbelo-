@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Church of Barbelo</title>
+<meta name="description" content="The Church of Barbelo is a religious body in the Ophite Gnostic tradition. Teaching, texts, news and enquiries.">
+<meta property="og:title" content="The Church of Barbelo">
+<meta property="og:description" content="A religious body in the Ophite Gnostic tradition.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/og-image.png">
+<meta name="theme-color" content="#E7E3D8">
+<link rel="icon" href="assets/favicon.png" sizes="64x64">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14120E;
+  --vellum:#E7E3D8;
+  --card:#F2EFE6;
+  --lapis:#232C63;
+  --gilt:#96762F;
+  --muted:#6C6558;
+  --rule:rgba(20,18,14,.16);
+  --display:"Bodoni Moda",Georgia,serif;
+  --body:"Spectral",Georgia,serif;
+  --util:"Archivo",system-ui,sans-serif;
+  --wide:1120px;
+  --pad:clamp(1.25rem,5vw,3rem);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--vellum);
+  color:var(--ink);
+  font-family:var(--body);
+  font-weight:400;
+  font-size:clamp(1.02rem,.98rem + .35vw,1.15rem);
+  line-height:1.68;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:var(--lapis);text-underline-offset:.22em;text-decoration-thickness:.5px}
+a:hover{color:var(--ink)}
+:focus-visible{outline:2px solid var(--lapis);outline-offset:3px}
+
+.wrap{width:100%;max-width:var(--wide);margin-inline:auto;padding-inline:var(--pad)}
+
+/* ---------- shared type ---------- */
+.eyebrow{
+  font-family:var(--util);
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--gilt);
+  margin:0 0 1.1rem;
+}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.005em;margin:0}
+h2{font-size:clamp(1.85rem,1.4rem + 1.8vw,2.7rem);line-height:1.12}
+h3{font-size:1.2rem;line-height:1.3}
+.lede{font-size:1.12em;line-height:1.62}
+.muted{color:var(--muted)}
+
+/* ---------- header ---------- */
+.masthead{
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb,var(--vellum) 94%,transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.masthead .wrap{display:flex;align-items:center;gap:1rem;min-height:64px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit;margin-right:auto}
+.brand img{width:26px;height:auto}
+.brand span{
+  font-family:var(--display);
+  font-size:.94rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.nav{display:flex;gap:1.15rem;flex-wrap:wrap}
+.nav a{
+  font-family:var(--util);
+  font-size:.74rem;
+  font-weight:500;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--ink);
+  text-decoration:none;
+  padding:.35rem 0;
+  border-bottom:1px solid transparent;
+}
+.nav a:hover{border-bottom-color:var(--gilt)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(2.5rem,6vw,4.5rem);text-align:center}
+.seal{
+  position:relative;
+  width:min(300px,64vw);
+  aspect-ratio:1;
+  margin:0 auto clamp(1.75rem,4vw,2.75rem);
+}
+.seal::before{
+  content:"";
+  position:absolute;
+  inset:-22%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(150,118,47,.15) 0%,rgba(150,118,47,0) 62%);
+}
+.seal img{position:absolute;inset:0;width:100%;height:100%}
+.seal .ring{animation:turn 120s linear infinite}
+@keyframes turn{to{transform:rotate(360deg)}}
+
+.wordmark{
+  font-family:var(--display);
+  font-weight:400;
+  font-size:clamp(2.1rem,1.2rem + 4.2vw,4rem);
+  line-height:1.02;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+  margin:0;
+}
+.wordmark .the{
+  display:block;
+  font-size:.28em;
+  letter-spacing:.5em;
+  margin-bottom:.7em;
+  text-indent:.5em;
+}
+.wordmark .of{
+  display:block;
+  font-size:.3em;
+  letter-spacing:.44em;
+  margin:.45em 0;
+  text-indent:.44em;
+}
+.epigraph{
+  max-width:34ch;
+  margin:clamp(1.6rem,4vw,2.4rem) auto 0;
+  font-style:italic;
+  font-size:1.05em;
+  color:var(--muted);
+  line-height:1.55;
+}
+.epigraph cite{display:block;font-style:normal;font-family:var(--util);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gilt);margin-top:1rem}
+.actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-top:clamp(1.75rem,4vw,2.5rem)}
+.btn{
+  font-family:var(--util);
+  font-size:.75rem;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  text-decoration:none;
+  padding:.85rem 1.5rem;
+  border:1px solid var(--ink);
+  color:var(--ink);
+  transition:background .18s ease,color .18s ease;
+}
+.btn:hover{background:var(--ink);color:var(--vellum)}
+.btn.solid{background:var(--ink);color:var(--vellum)}
+.btn.solid:hover{background:var(--lapis);border-color:var(--lapis);color:var(--vellum)}
+
+/* ---------- sections ---------- */
+.band{padding:clamp(3rem,8vw,5.5rem) 0;border-top:1px solid var(--rule);scroll-margin-top:70px}
+.band.raised{background:var(--card)}
+.band > .wrap > h2{max-width:22ch}
+.section-head{margin-bottom:clamp(1.75rem,4vw,2.5rem)}
+.split{display:grid;gap:clamp(1.5rem,4vw,3.5rem);grid-template-columns:1fr}
+@media(min-width:820px){
+  .split{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);align-items:start}
+  .split .section-head{margin-bottom:0;position:sticky;top:92px}
+}
+.prose p{margin:0 0 1.1em}
+.prose p:last-child{margin-bottom:0}
+
+/* ---------- glossary of terms ---------- */
+.terms{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.terms li{padding:1.5rem 0;border-top:1px solid var(--rule)}
+.terms li:first-child{border-top:none;padding-top:0}
+.terms li:last-child{padding-bottom:0}
+.terms .term{
+  display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-bottom:.4rem;
+}
+.terms .term b{font-family:var(--display);font-weight:500;font-size:1.25rem}
+.terms .term i{
+  font-family:var(--util);font-style:normal;font-size:.66rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--gilt);
+}
+.terms p{margin:0;color:var(--muted)}
+
+/* ---------- news ---------- */
+.entries{display:grid;gap:0;margin-top:1rem}
+.entry{
+  display:grid;gap:.4rem 2rem;padding:1.75rem 0;border-top:1px solid var(--rule);
+}
+.entry:last-child{border-bottom:1px solid var(--rule)}
+@media(min-width:720px){
+  .entry{grid-template-columns:10rem minmax(0,1fr)}
+}
+.entry .meta{font-family:var(--util);font-size:.7rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gilt);padding-top:.35rem}
+.entry .meta span{display:block;color:var(--muted);letter-spacing:.14em;margin-top:.3rem}
+.entry h3{margin-bottom:.35rem}
+.entry p{margin:0;color:var(--muted)}
+.entry a.more{font-family:var(--util);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;display:inline-block;margin-top:.7rem}
+.feed-note{font-family:var(--util);font-size:.78rem;color:var(--muted);margin-top:1.5rem}
+
+/* ---------- links ---------- */
+.links{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+@media(min-width:700px){.links{grid-template-columns:1fr 1fr}}
+.links li{background:var(--vellum);padding:1.5rem}
+.band.raised .links li{background:var(--card)}
+.links a{
+  font-family:var(--display);font-size:1.15rem;text-decoration:none;
+  display:inline-flex;align-items:baseline;gap:.5rem;
+}
+.links a::after{content:"\2192";font-family:var(--util);font-size:.85rem;transition:transform .18s ease}
+.links a:hover::after{transform:translateX(4px)}
+.links p{margin:.45rem 0 0;font-size:.95rem;color:var(--muted)}
+
+/* ---------- enquiries ---------- */
+.routes{display:grid;gap:1.5rem;margin-top:2rem}
+@media(min-width:760px){.routes{grid-template-columns:repeat(3,1fr)}}
+.route{border-top:2px solid var(--ink);padding-top:1.1rem}
+.route h3{font-size:1.05rem;margin-bottom:.4rem}
+.route p{margin:0 0 .8rem;font-size:.95rem;color:var(--muted)}
+.route a{font-family:var(--util);font-size:.78rem;letter-spacing:.06em;word-break:break-word}
+
+/* ---------- footer ---------- */
+.foot{background:var(--ink);color:var(--vellum);padding:clamp(2.75rem,6vw,4rem) 0}
+.foot a{color:var(--vellum)}
+.foot .wrap{display:grid;gap:1.75rem;justify-items:center;text-align:center}
+.foot img{width:44px;filter:invert(1);opacity:.85}
+.foot .sig{font-family:var(--display);letter-spacing:.2em;text-transform:uppercase;font-size:.9rem}
+.foot small{font-family:var(--util);font-size:.72rem;letter-spacing:.06em;color:rgba(231,227,216,.62);line-height:1.9}
+
+@media(max-width:620px){
+  .masthead .wrap{flex-wrap:nowrap;gap:.75rem;min-height:56px}
+  .brand span{display:none}
+  .nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:.95rem;
+    -webkit-mask-image:linear-gradient(to right,#000 86%,transparent);mask-image:linear-gradient(to right,#000 86%,transparent)}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{white-space:nowrap;font-size:.7rem;letter-spacing:.1em}
+  .band{scroll-margin-top:56px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .seal .ring{animation:none}
+  *{transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <img src="assets/mark.png" alt="">
+      <span>Church of Barbelo</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#welcome">Welcome</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#news">News</a>
+      <a href="#library">Library</a>
+      <a href="#enquiries">Enquiries</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero wrap">
+    <div class="seal">
+      <img class="ring" src="assets/ring.png" alt="">
+      <img class="mark" src="assets/mark-placed.png" alt="The seal of the Church of Barbelo: a serpent devouring its tail, encircling an eight-rayed star.">
+    </div>
+    <h1 class="wordmark"><span class="the">The</span>Church<span class="of">of</span>Barbelo</h1>
+    <p class="epigraph">
+      Before anything was named, the Thought was; and every light since has been kindled at hers.
+      <cite>Replace with your own epigraph</cite>
+    </p>
+    <div class="actions">
+      <a class="btn solid" href="#teaching">What we teach</a>
+      <a class="btn" href="#enquiries">Make an enquiry</a>
+    </div>
+  </section>
+
+  <section class="band" id="welcome">
+    <div class="wrap split">
+      <div class="section-head">
+        <p class="eyebrow">Welcome</p>
+        <h2>A church in the Ophite tradition</h2>
+      </div>
+      <div class="prose">
+        <p class="lede">We are a small religious body who hold that the human being carries a spark of the divine fullness, and that the purpose of a life is to know it.</p>
+        <p>The Ophite tradition is one of the oldest strands of Gnostic thought and one of the least fairly read. Where it survives, it survives mostly in the words of people who wrote to condemn it. Part of our work is ordinary religious life &mdash; teaching, rites, care for members. The other part is recovering the tradition from those hostile accounts and setting it out plainly, so that it can be judged on what it actually says.</p>
+        <p>You do not need to believe anything to write to us, and there is nothing to sign. If you have come here because something in the material has caught you, that is reason enough.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band raised" id="teaching">
+    <div class="wrap split">
+      <div class="section-head">
+        <p class="eyebrow">Teaching</p>
+        <h2>Four things we hold</h2>
+        <p class="muted" style="margin-top:1rem;font-size:.95rem">Stated briefly here. Set out in full in <em>On the Union of Souls</em>.</p>
+      </div>
+      <ul class="terms">
+        <li>
+          <div class="term"><b>Barbelo</b><i>The first thought</i></div>
+          <p>The first emanation of the Invisible Spirit: not a made thing, but the Spirit's own thought of itself, and the ground from which the fullness unfolds.</p>
+        </li>
+        <li>
+          <div class="term"><b>The Pleroma</b><i>The fullness</i></div>
+          <p>The whole and undivided realm of light. The world we live in is not that realm, and the difference between them is not a matter of degree.</p>
+        </li>
+        <li>
+          <div class="term"><b>The Spark</b><i>What is yours</i></div>
+          <p>Something of the fullness is held in each person. It is not earned, it cannot be granted by an institution, and no institution can take it away. Knowledge of it is what we mean by gnosis.</p>
+        </li>
+        <li>
+          <div class="term"><b>The Serpent</b><i>Ophis</i></div>
+          <p>In our reading the serpent of Eden brings knowledge rather than ruin. This is the point on which the tradition was named, condemned, and largely lost.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band" id="news">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">News</p>
+        <h2>Recent notices</h2>
+      </div>
+      <div class="entries" id="entries" aria-live="polite">
+        <p class="muted">Loading notices&hellip;</p>
+      </div>
+      <p class="feed-note">Notices are posted as work is finished rather than on a schedule.</p>
+    </div>
+  </section>
+
+  <section class="band raised" id="library">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Library</p>
+        <h2>Where to read further</h2>
+      </div>
+      <ul class="links">
+        <li>
+          <a href="https://example.github.io/pleroma-archive/">The Pleroma Archive</a>
+          <p>Our companion project: sources, translations and commentary on the Ophite and Sethian material, published as it is checked.</p>
+        </li>
+        <li>
+          <a href="#enquiries">Before the Umbrella</a>
+          <p>A working paper arguing that the Ophite material is better classified as proto-Gnostic than as a late Gnostic branch. Draft available to reviewers on request.</p>
+        </li>
+        <li>
+          <a href="#enquiries">On the Union of Souls</a>
+          <p>The first doctrinal text of the Church. Sent to enquirers who ask for it.</p>
+        </li>
+        <li>
+          <a href="http://gnosis.org/naghamm/nhl.html">The Nag Hammadi Library</a>
+          <p>The primary codices in English, hosted by the Gnostic Society. The best free starting point for the wider Gnostic corpus.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band" id="enquiries">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Enquiries</p>
+        <h2>Three ways to reach us</h2>
+      </div>
+      <div class="routes">
+        <div class="route">
+          <h3>If you are seeking</h3>
+          <p>Questions about the teaching, about membership, or about what belonging here involves. Write in your own words; there is no form to fill in.</p>
+          <a href="mailto:enquiries@churchofbarbelo.org">enquiries@churchofbarbelo.org</a>
+        </div>
+        <div class="route">
+          <h3>Academics and clergy</h3>
+          <p>Correspondence on sources, translation, classification and doctrine. Drafts and citations are shared on request.</p>
+          <a href="mailto:office@churchofbarbelo.org">office@churchofbarbelo.org</a>
+        </div>
+        <div class="route">
+          <h3>Press</h3>
+          <p>Interviews and comment. Please say what you are writing and when you need a reply by.</p>
+          <a href="mailto:press@churchofbarbelo.org">press@churchofbarbelo.org</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <img src="assets/mark.png" alt="">
+    <p class="sig">The Church of Barbelo</p>
+    <small>
+      &copy; <span id="year">2026</span> The Church of Barbelo. All rights reserved.<br>
+      Companion project: <a href="https://example.github.io/pleroma-archive/">The Pleroma Archive</a>
+    </small>
+  </div>
+</footer>
+
+<script type="application/json" id="news-fallback">
+[{"date": "2026-08-12", "tag": "Doctrine", "title": "On the Union of Souls is now in circulation", "body": "The first doctrinal text of the Church is complete and available to enquirers on request. It sets out our teaching on the joining of the soul to the spark, and the conditions under which that joining is held to endure.", "link": ""}, {"date": "2026-07-02", "tag": "Research", "title": "Before the Umbrella enters revision", "body": "Our working paper argues that the Ophite material is better read as proto-Gnostic than as a late branch of the Gnostic family. The current draft is being revised ahead of circulation to reviewers.", "link": ""}, {"date": "2026-05-20", "tag": "Archive", "title": "The Pleroma Archive continues to grow", "body": "Sources, translations and commentary are published separately at the Archive. New material is added there as it is checked rather than held back for a release.", "link": "https://example.github.io/pleroma-archive/"}]
+</script>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+function formatDate(iso){
+  var d = new Date(iso + 'T00:00:00');
+  if (isNaN(d)) return iso;
+  return d.toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
+}
+
+function renderNews(items){
+  var host = document.getElementById('entries');
+  host.innerHTML = '';
+  if (!items || !items.length){
+    host.innerHTML = '<p class="muted">No notices posted yet. New notices appear here as they are published.</p>';
+    return;
+  }
+  items.sort(function(a,b){ return (b.date || '').localeCompare(a.date || ''); });
+  items.forEach(function(item){
+    var el = document.createElement('article');
+    el.className = 'entry';
+
+    var meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent = formatDate(item.date || '');
+    if (item.tag){
+      var tag = document.createElement('span');
+      tag.textContent = item.tag;
+      meta.appendChild(tag);
+    }
+
+    var main = document.createElement('div');
+    var h = document.createElement('h3');
+    h.textContent = item.title || '';
+    var p = document.createElement('p');
+    p.textContent = item.body || '';
+    main.appendChild(h);
+    main.appendChild(p);
+
+    if (item.link){
+      var a = document.createElement('a');
+      a.className = 'more';
+      a.href = item.link;
+      a.textContent = 'Read more \u2192';
+      main.appendChild(a);
+    }
+
+    el.appendChild(meta);
+    el.appendChild(main);
+    host.appendChild(el);
+  });
+}
+
+fetch('news.json', {cache:'no-cache'})
+  .then(function(r){ if(!r.ok) throw new Error('missing'); return r.json(); })
+  .then(renderNews)
+  .catch(function(){
+    try { renderNews(JSON.parse(document.getElementById('news-fallback').textContent)); }
+    catch(e){ renderNews([]); }
+  });
+</script>
+
+</body>
+</html>
