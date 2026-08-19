@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library | The Pleroma Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1c1610;
+    --parchment: #f0ead8;
+    --parchment-dark: #e2d9c0;
+    --gold: #8b6914;
+    --gold-light: #c9a84c;
+    --red: #6b1a1a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--parchment);
+    color: var(--ink);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 12px; left: 12px; right: 12px; bottom: 12px;
+    border: 1px solid var(--gold);
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.3;
+  }
+
+  .page-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 50px 40px;
+  }
+
+  nav {
+    margin-bottom: 40px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  nav a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  nav a:hover { text-decoration: underline; }
+  nav span { color: #888; margin: 0 8px; }
+
+  header {
+    text-align: center;
+    padding-bottom: 36px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--parchment-dark);
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .section-note {
+    font-style: italic;
+    font-size: 1rem;
+    color: #5a5040;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--parchment-dark);
+    margin-top: 50px;
+  }
+
+  h2:first-of-type {
+    margin-top: 0;
+  }
+
+  section {
+    margin-bottom: 10px;
+  }
+
+  /* Text catalogue entries */
+  .text-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .text-entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--parchment-dark);
+  }
+
+  .text-entry:last-child {
+    border-bottom: none;
+  }
+
+  .text-title {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+
+  .text-title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .text-title a:hover {
+    color: var(--gold);
+  }
+
+  .text-meta {
+    font-size: 0.88rem;
+    color: #5a5040;
+    font-style: italic;
+  }
+
+  .text-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    align-items: flex-start;
+    padding-top: 4px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 4px 12px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-read {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: transparent;
+  }
+
+  .btn-read:hover {
+    background: var(--gold);
+    color: var(--parchment);
+  }
+
+  .btn-download {
+    border-color: var(--ink);
+    color: var(--ink);
+    background: transparent;
+  }
+
+  .btn-download:hover {
+    background: var(--ink);
+    color: var(--parchment);
+  }
+
+  /* Inline reader panel */
+  .reader-panel {
+    display: none;
+    margin-top: 16px;
+    grid-column: 1 / -1;
+    background: rgba(255,255,255,0.4);
+    border: 1px solid var(--parchment-dark);
+    border-left: 3px solid var(--gold);
+    padding: 30px 36px;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  .reader-panel.open {
+    display: block;
+  }
+
+  .reader-panel h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    color: var(--gold);
+  }
+
+  .reader-panel .reader-text {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--ink);
+  }
+
+  .reader-panel .reader-text p {
+    margin-bottom: 16px;
+  }
+
+  .reader-close {
+    float: right;
+    background: none;
+    border: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
+  .reader-close:hover { color: var(--red); }
+
+  /* Coming soon placeholder */
+  .coming-soon {
+    text-align: center;
+    padding: 60px 20px;
+    font-style: italic;
+    color: #888;
+    font-size: 1rem;
+  }
+
+  .coming-soon .ornament {
+    display: block;
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+
+  /* Ornament divider */
+  .ornament-divider {
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 1.1rem;
+    letter-spacing: 8px;
+    margin: 40px 0 0;
+  }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--parchment-dark);
+    font-size: 0.88rem;
+    color: #5a5040;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  footer a { color: var(--gold); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .page-wrapper { padding: 30px 20px; }
+    h1 { font-size: 1.4rem; }
+    .text-entry { grid-template-columns: 1fr; }
+    .text-actions { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <nav>
+    <a href="index.html">The Pleroma Archive</a>
+    <span>/</span>
+    Library
+  </nav>
+
+  <header>
+    <h1>The Library</h1>
+    <p class="section-note">All preserved texts of the archive. Restored ancient codices, Hermetic writings, and accepted community submissions — freely available for reading and download.</p>
+  </header>
+
+  <section>
+    <h2>Nag Hammadi Library</h2>
+    <div class="text-list">
+
+      <div class="text-entry" data-text="gospel-thomas">
+        <div>
+          <div class="text-title">
+            <a href="#" onclick="toggleReader('gospel-thomas'); return false;">The Gospel of Thomas</a>
+          </div>
+          <div class="text-meta">Nag Hammadi Codex II &middot; Coptic, c. 340 CE &middot; Translation: public domain</div>
+          <div class="reader-panel" id="reader-gospel-thomas">
+            <button class="reader-close" onclick="toggleReader('gospel-thomas')">Close &#10005;</button>
+            <h3>The Gospel of Thomas</h3>
+            <div class="reader-text">
+              <p><em>These are the secret sayings that the living Jesus spoke and Didymos Judas Thomas recorded.</em></p>
+              <p>(1) And he said, "Whoever discovers the interpretation of these sayings will not taste death."</p>
+              <p>(2) Jesus said, "Those who seek should not stop seeking until they find. When they find, they will be disturbed. When they are disturbed, they will marvel, and will reign over all."</p>
+              <p>(3) Jesus said, "If your leaders say to you, 'Look, the kingdom is in heaven,' then the birds of heaven will precede you. If they say to you, 'It's in the sea,' then the fish will precede you. Rather, the kingdom is within you and it is outside you."</p>
+              <p>(4) Jesus said, "The person old in days won't hesitate to ask a little child seven days old about the place of life, and that person will live. For many of the first will be last, and will become a single one."</p>
+              <p>(5) Jesus said, "Know what is in front of your face, and what is hidden from you will be disclosed to you. For there is nothing hidden that won't be revealed."</p>
+              <p><em>[ Full text — download below for the complete 114 sayings ]</em></p>
+            </div>
+          </div>
+        </div>
+        <div class="text-actions">
+          <a href="#" class="btn btn-read" onclick="toggleReader('gospel-thomas'); return false;">Read</a>
+          <a href="library/texts/gospel-of-thomas.txt" class="btn btn-download" download>Download</a>
+        </div>
+      </div>
+
+      <div class="text-entry" data-text="apocryphon-john">
+        <div>
+          <div class="text-title">
+            <a href="#" onclick="toggleReader('apocryphon-john'); return false;">The Apocryphon of John</a>
+          </div>
+          <div class="text-meta">Nag Hammadi Codex II &middot; The secret revelation of John &middot; Coptic, c. 4th century CE</div>
+          <div class="reader-panel" id="reader-apocryphon-john">
+            <button class="reader-close" onclick="toggleReader('apocryphon-john')">Close &#10005;</button>
+            <h3>The Apocryphon of John</h3>
+            <div class="reader-text">
+              <p><em>The teaching of the saviour, and the revelation of the mysteries and the things hidden in silence, even these things which he taught John, his disciple.</em></p>
+              <p>And it happened one day, when John, the brother of James — who are the sons of Zebedee — had come up to the temple, that a Pharisee named Arimanios approached him and said to him, "Where is your master whom you followed?"</p>
+              <p>And he said to him, "He has gone to the place from which he came." The Pharisee said to him, "With deception did this Nazarene deceive you, and he filled your ears with lies, and closed your hearts and turned you from the traditions of your fathers."</p>
+              <p>When I, John, heard these things I turned away from the temple to a desert place. And I grieved greatly in my heart, saying, "How then was the saviour appointed, and why was he sent into the world by his Father, and who is his Father who sent him, and of what sort is that aeon to which we shall go?"</p>
+              <p><em>[ Full text — download below ]</em></p>
+            </div>
+          </div>
+        </div>
+        <div class="text-actions">
+          <a href="#" class="btn btn-read" onclick="toggleReader('apocryphon-john'); return false;">Read</a>
+          <a href="library/texts/apocryphon-of-john.txt" class="btn btn-download" download>Download</a>
+        </div>
+      </div>
+
+      <div class="text-entry" data-text="testimony-truth">
+        <div>
+          <div class="text-title">
+            <a href="#" onclick="toggleReader('testimony-truth'); return false;">The Testimony of Truth</a>
+          </div>
+          <div class="text-meta">Nag Hammadi Codex IX &middot; Serpent-positive Eden reading &middot; Key Ophite-adjacent text</div>
+          <div class="reader-panel" id="reader-testimony-truth">
+            <button class="reader-close" onclick="toggleReader('testimony-truth')">Close &#10005;</button>
+            <h3>The Testimony of Truth</h3>
+            <div class="reader-text">
+              <p>But what sort is this God? First he maliciously refused Adam from eating of the tree of knowledge. And secondly he said, "Adam, where are you?" God does not have foreknowledge; otherwise, would he not know from the beginning?</p>
+              <p>And afterwards he said, "Let us cast him out of this place, lest he eat of the tree of life and live forever." Surely he has shown himself to be a malicious grudger. And what kind of God is this? For great is the blindness of those who read, and they did not know him.</p>
+              <p>And he said, "I am a jealous God; I will bring the sins of the fathers upon the children until three and four generations." And he said, "I will make their heart heavy, and I will cause their mind to become blind, that they might not know nor comprehend the things that are said."</p>
+              <p><em>[ Full text — download below ]</em></p>
+            </div>
+          </div>
+        </div>
+        <div class="text-actions">
+          <a href="#" class="btn btn-read" onclick="toggleReader('testimony-truth'); return false;">Read</a>
+          <a href="library/texts/testimony-of-truth.txt" class="btn btn-download" download>Download</a>
+        </div>
+      </div>
+
+      <div class="text-entry" data-text="hypostasis-archons">
+        <div>
+          <div class="text-title">
+            <a href="#" onclick="toggleReader('hypostasis-archons'); return false;">The Hypostasis of the Archons</a>
+          </div>
+          <div class="text-meta">Nag Hammadi Codex II &middot; On the nature and origin of the archons</div>
+          <div class="reader-panel" id="reader-hypostasis-archons">
+            <button class="reader-close" onclick="toggleReader('hypostasis-archons')">Close &#10005;</button>
+            <h3>The Hypostasis of the Archons</h3>
+            <div class="reader-text">
+              <p><em>Concerning the reality of the authorities, inspired by the spirit of the father of truth, the great apostle — referring to the authorities of the darkness — told us that "our contest is not against flesh and blood; rather, the authorities of the universe and the spirits of wickedness."</em></p>
+              <p>Their chief is blind; because of his power and his ignorance and his arrogance he said, with his power, "It is I who am God; there is none apart from me." When he said this, he sinned against the entirety. And this speech got up to incorruptibility; then there was a voice that came forth from incorruptibility, saying, "You are mistaken, Samael" — which is, "god of the blind."</p>
+              <p><em>[ Full text — download below ]</em></p>
+            </div>
+          </div>
+        </div>
+        <div class="text-actions">
+          <a href="#" class="btn btn-read" onclick="toggleReader('hypostasis-archons'); return false;">Read</a>
+          <a href="library/texts/hypostasis-of-the-archons.txt" class="btn btn-download" download>Download</a>
+        </div>
+      </div>
+
+      <div class="text-entry" data-text="origin-world">
+        <div>
+          <div class="text-title">
+            <a href="#" onclick="toggleReader('origin-world'); return false;">On the Origin of the World</a>
+          </div>
+          <div class="text-meta">Nag Hammadi Codex II &middot; Cosmogony and the Sophia mythology</div>
+          <div class="reader-panel" id="reader-origin-world">
+            <button class="reader-close" onclick="toggleReader('origin-world')">Close &#10005;</button>
+            <h3>On the Origin of the World</h3>
+            <div class="reader-text">
+              <p>Seeing that everybody, gods of the world and mankind, says that nothing existed prior to chaos, I, in distinction to them, shall demonstrate that they are all mistaken, because they are not acquainted with the origin of chaos, nor with its root.</p>
+              <p>Here is the demonstration: How well it suits all men, on the subject of chaos, to say that it is a kind of darkness! But in fact it comes from a shadow, which has been called by the name "darkness." And the shadow comes from a product that has existed since the beginning.</p>
+              <p>It is, moreover, clear that it existed before chaos came into being, and that the latter is posterior to the first product. Let us therefore concern ourselves with the facts of the matter; and furthermore, with the first product, from which chaos was projected.</p>
+              <p><em>[ Full text — download below ]</em></p>
+            </div>
+          </div>
+        </div>
+        <div class="text-actions">
+          <a href="#" class="btn btn-read" onclick="toggleReader('origin-world'); return false;">Read</a>
+          <a href="library/texts/on-the-origin-of-the-world.txt" class="btn btn-download" download>Download</a>
+        </div>
+      </div>
+
+      <div class="text-entry" data-text="gospel-philip">
+        <div>
+          <div class="text-title">
+            <a href="#" onclick="toggleReader('gospel-philip'); return false;">The Gospel of Philip</a>
+          </div>
+          <div class="text-meta">Nag Hammadi Codex II &middot; Valentinian sacramental theology &middot; Coptic, c. 3rd century CE</div>
+          <div class="reader-panel" id="reader-gospel-philip">
+            <button class="reader-close" onclick="toggleReader('gospel-philip')">Close &#10005;</button>
+            <h3>The Gospel of Philip</h3>
+            <div class="reader-text">
+              <p>A Hebrew makes another Hebrew, and such a person is called a proselyte. But a proselyte does not make another proselyte. Others simply exist and make others like themselves, while others simply exist.</p>
+              <p>The slave seeks only to be free, but does not hope to acquire the estate of his master. But the son is not only a son but lays claim to the inheritance of the father.</p>
+              <p>Those who inherit the dead are themselves dead, and they inherit the dead. Those who inherit the living are alive, and they inherit both the living and the dead. The dead do not inherit anything. For how will the dead inherit? When the dead inherits the living he will not die, but the dead will live even more.</p>
+              <p>Light and darkness, life and death, right and left are brothers of one another. It is not possible to separate them from one another. Because of this neither are the good good, nor the evil evil, nor is life life, nor death death.</p>
+              <p><em>[ Full text — download below ]</em></p>
+            </div>
+          </div>
+        </div>
+        <div class="text-actions">
+          <a href="#" class="btn btn-read" onclick="toggleReader('gospel-philip'); return false;">Read</a>
+          <a href="library/texts/gospel-of-philip.txt" class="btn btn-download" download>Download</a>
+        </div>
+      </div>
+
+      <div class="text-entry" data-text="gospel-truth">
+        <div>
+          <div class="text-title">
+            <a href="#" onclick="toggleReader('gospel-truth'); return false;">The Gospel of Truth</a>
+          </div>
+          <div class="text-meta">Nag Hammadi Codex I &middot; Attributed to Valentinus &middot; Coptic, c. 2nd century CE</div>
+          <div class="reader-panel" id="reader-gospel-truth">
+            <button class="reader-close" onclick="toggleReader('gospel-truth')">Close &#10005;</button>
+            <h3>The Gospel of Truth</h3>
+            <div class="reader-text">
+              <p>The gospel of truth is joy for those who have received from the Father of Truth the grace of knowing him, through the power of the Word that came forth from the pleroma — the one who is in the thought and the mind of the Father, that is, the one who is addressed as the Saviour, that being the name of the work he is to perform for the redemption of those who were ignorant of the Father.</p>
+              <p>For the name of the gospel is the proclamation of hope, being discovery for those who search for him.</p>
+              <p>Indeed the entirety went about searching for the one from whom it had come forth, and the entirety was inside of him, the incomprehensible, inconceivable one who is superior to every thought. Ignorance of the Father brought about anguish and terror; and the anguish grew solid like a fog, so that no one was able to see.</p>
+              <p><em>[ Full text — download below ]</em></p>
+            </div>
+          </div>
+        </div>
+        <div class="text-actions">
+          <a href="#" class="btn btn-read" onclick="toggleReader('gospel-truth'); return false;">Read</a>
+          <a href="library/texts/gospel-of-truth.txt" class="btn btn-download" download>Download</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="ornament-divider">— &#10022; —</div>
+
+  <section>
+    <h2>Hermetica</h2>
+    <div class="coming-soon">
+      <span class="ornament">&#9791;</span>
+      Hermetic texts under curation. Coming soon.
+    </div>
+  </section>
+
+  <div class="ornament-divider">— &#10022; —</div>
+
+  <section>
+    <h2>Ophite Reconstruction</h2>
+    <div class="coming-soon">
+      <span class="ornament">&#128013;</span>
+      The Ophite reconstructive project is in progress. Hostile-source analysis, cross-referenced fragments, and the Archon Codex will be added here as completed.
+    </div>
+  </section>
+
+  <div class="ornament-divider">— &#10022; —</div>
+
+  <section id="liturgy">
+    <h2>Liturgy &amp; Gospel</h2>
+    <div class="coming-soon">
+      <span class="ornament">&#10022;</span>
+      User-submitted liturgy, personal gospels, and sacred writing. Accepted submissions will appear here.
+    </div>
+  </section>
+
+  <footer>
+    <span><a href="index.html">&#8592; Return to Archive</a></span>
+    <span>All texts are public domain or original translations. Free to use with attribution.</span>
+      <span>Hosted by <a href="../index.html">The Church of Barbelo</a>.</span>
+  </footer>
+
+</div>
+
+<script>
+  function toggleReader(id) {
+    const panel = document.getElementById('reader-' + id);
+    const isOpen = panel.classList.contains('open');
+    document.querySelectorAll('.reader-panel').forEach(p => p.classList.remove('open'));
+    if (!isOpen) {
+      panel.classList.add('open');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+</script>
+
+</body>
+</html>

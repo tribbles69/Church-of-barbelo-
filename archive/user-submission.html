@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Submission | The Pleroma Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1c1610;
+    --parchment: #f0ead8;
+    --parchment-dark: #e2d9c0;
+    --gold: #8b6914;
+    --gold-light: #c9a84c;
+    --red: #6b1a1a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--parchment);
+    color: var(--ink);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 12px; left: 12px; right: 12px; bottom: 12px;
+    border: 1px solid var(--gold);
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.3;
+  }
+
+  .page-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 50px 40px;
+  }
+
+  nav {
+    margin-bottom: 40px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  nav a { color: var(--gold); text-decoration: none; }
+  nav a:hover { text-decoration: underline; }
+  nav span { color: #888; margin: 0 8px; }
+
+  header {
+    text-align: center;
+    padding-bottom: 36px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--parchment-dark);
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .section-note {
+    font-style: italic;
+    font-size: 1rem;
+    color: #5a5040;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--parchment-dark);
+    margin-top: 50px;
+  }
+
+  h2:first-of-type { margin-top: 0; }
+
+  section { margin-bottom: 10px; }
+
+  p { margin-bottom: 14px; font-size: 1.05rem; }
+
+  .mandate {
+    border-left: 3px solid var(--gold);
+    padding: 16px 24px;
+    background: rgba(139,105,20,0.04);
+    margin: 24px 0 30px;
+    font-style: italic;
+    font-size: 1.05rem;
+  }
+
+  /* Requirements list */
+  .requirements {
+    list-style: none;
+    margin: 16px 0;
+  }
+
+  .requirements li {
+    padding: 10px 0 10px 28px;
+    border-bottom: 1px solid var(--parchment-dark);
+    position: relative;
+    font-size: 1rem;
+  }
+
+  .requirements li:last-child { border-bottom: none; }
+
+  .requirements li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.7rem;
+    top: 14px;
+  }
+
+  /* Exclusions list */
+  .exclusions {
+    list-style: none;
+    margin: 16px 0;
+  }
+
+  .exclusions li {
+    padding: 10px 0 10px 28px;
+    border-bottom: 1px solid var(--parchment-dark);
+    position: relative;
+    font-size: 1rem;
+    color: #5a5040;
+  }
+
+  .exclusions li:last-child { border-bottom: none; }
+
+  .exclusions li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-size: 0.85rem;
+    top: 12px;
+  }
+
+  /* Text catalogue entries */
+  .text-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .text-entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--parchment-dark);
+  }
+
+  .text-entry:last-child { border-bottom: none; }
+
+  .text-title {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+
+  .text-title a { color: var(--ink); text-decoration: none; }
+  .text-title a:hover { color: var(--gold); }
+
+  .text-meta {
+    font-size: 0.88rem;
+    color: #5a5040;
+    font-style: italic;
+  }
+
+  .text-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    align-items: flex-start;
+    padding-top: 4px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 4px 12px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-read { border-color: var(--gold); color: var(--gold); background: transparent; }
+  .btn-read:hover { background: var(--gold); color: var(--parchment); }
+  .btn-download { border-color: var(--ink); color: var(--ink); background: transparent; }
+  .btn-download:hover { background: var(--ink); color: var(--parchment); }
+
+  /* Inline reader panel */
+  .reader-panel {
+    display: none;
+    margin-top: 16px;
+    grid-column: 1 / -1;
+    background: rgba(255,255,255,0.4);
+    border: 1px solid var(--parchment-dark);
+    border-left: 3px solid var(--gold);
+    padding: 30px 36px;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  .reader-panel.open { display: block; }
+
+  .reader-panel h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    color: var(--gold);
+  }
+
+  .reader-panel .reader-text { font-size: 1rem; line-height: 1.85; color: var(--ink); }
+  .reader-panel .reader-text p { margin-bottom: 16px; }
+
+  .reader-close {
+    float: right;
+    background: none;
+    border: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
+  .reader-close:hover { color: var(--red); }
+
+  /* Empty state */
+  .empty-state {
+    padding: 50px 20px;
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--parchment-dark);
+  }
+
+  .empty-state .ornament {
+    display: block;
+    color: var(--gold);
+    font-size: 1.1rem;
+    letter-spacing: 8px;
+    margin-bottom: 14px;
+    opacity: 0.4;
+    font-style: normal;
+  }
+
+  /* Submit CTA */
+  .submit-cta {
+    margin-top: 50px;
+    padding: 36px;
+    border: 1px solid var(--gold);
+    text-align: center;
+    background: rgba(139,105,20,0.03);
+  }
+
+  .submit-cta h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .submit-cta p { font-size: 1rem; color: #4a4035; margin-bottom: 22px; }
+
+  .submit-btn {
+    display: inline-block;
+    padding: 10px 28px;
+    border: 1px solid var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .submit-btn:hover { background: var(--gold); color: var(--parchment); }
+
+  .ornament-divider {
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 1.1rem;
+    letter-spacing: 8px;
+    margin: 40px 0 0;
+  }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--parchment-dark);
+    font-size: 0.88rem;
+    color: #5a5040;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  footer a { color: var(--gold); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .page-wrapper { padding: 30px 20px; }
+    h1 { font-size: 1.4rem; }
+    .text-entry { grid-template-columns: 1fr; }
+    .text-actions { flex-wrap: wrap; }
+    .submit-cta { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <nav>
+    <a href="index.html">The Pleroma Archive</a>
+    <span>/</span>
+    User Submission
+  </nav>
+
+  <header>
+    <h1>User Submission</h1>
+    <p class="section-note">An open collection of contemporary Gnostic writing, preserved in perpetuity. All accepted works are freely available for public reading and download.</p>
+  </header>
+
+  <section>
+    <h2>The Criterion</h2>
+    <div class="mandate">
+      If Sophia speaks through you and you write it down, it belongs here.
+    </div>
+    <p>The Pleroma Archive exists to ensure that Gnostic writing — ancient and modern — is never lost. This collection is open to all who carry the Spark. Submissions are reviewed by the curator before publication to ensure copyright compliance and the integrity of the archive.</p>
+    <p>Submitted works are preserved here for unrestricted public access. Contributors retain all rights to their own writing — the archive holds a copy for public access only.</p>
+  </section>
+
+  <div class="ornament-divider">— &#10022; —</div>
+
+  <section>
+    <h2>What We Accept</h2>
+    <ul class="requirements">
+      <li>Original Gnostic writing — personal gospels, cosmological essays, spiritual testimony, poetry</li>
+      <li>Theological commentary on Gnostic texts or traditions</li>
+      <li>Accounts of direct spiritual experience within a Gnostic framework</li>
+      <li>Reconstructive work on suppressed traditions — Ophite, Cathar, Bogomil, Mandaean, and related</li>
+      <li>Philosophical writing that engages seriously with Gnostic cosmology</li>
+      <li>Work may be submitted anonymously or under a chosen name</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>What We Do Not Accept</h2>
+    <ul class="exclusions">
+      <li>Thelemic or OTO material — a different tradition, not preserved here</li>
+      <li>Chaos magick or general occult material without Gnostic grounding</li>
+      <li>Copyrighted material submitted without the rights holder's permission</li>
+      <li>Evangelical or proselytising content of any tradition</li>
+      <li>Content that promotes harm to persons</li>
+    </ul>
+  </section>
+
+  <div class="ornament-divider">— &#10022; —</div>
+
+  <section>
+    <h2>Liturgy &amp; Gospel</h2>
+    <div class="empty-state">
+      <span class="ornament">— &#10022; —</span>
+      No works have been published yet. Be the first to submit a record.
+    </div>
+  </section>
+
+  <div class="ornament-divider">— &#10022; —</div>
+
+  <section>
+    <h2>Theological Writing &amp; Testimony</h2>
+    <div class="empty-state">
+      <span class="ornament">— &#10022; —</span>
+      No works have been published yet.
+    </div>
+  </section>
+
+  <div class="ornament-divider">— &#10022; —</div>
+
+  <section>
+    <h2>Sacred Poetry</h2>
+    <div class="empty-state">
+      <span class="ornament">— &#10022; —</span>
+      No works have been published yet.
+    </div>
+  </section>
+
+  <div class="submit-cta">
+    <h3>Submit a Record</h3>
+    <p>Submissions are reviewed by Aaron Clews, Priest of the Church of Barbelo, before publication.</p>
+    <a href="submissions.html" class="submit-btn">Submit Your Writing</a>
+  </div>
+
+  <footer>
+    <span><a href="index.html">&#8592; Return to Archive</a></span>
+    <span>All submitted material preserved for public access with attribution.</span>
+      <span>Hosted by <a href="../index.html">The Church of Barbelo</a>.</span>
+  </footer>
+
+</div>
+
+<script>
+  function toggleReader(id) {
+    const panel = document.getElementById('reader-' + id);
+    const isOpen = panel.classList.contains('open');
+    document.querySelectorAll('.reader-panel').forEach(p => p.classList.remove('open'));
+    if (!isOpen) {
+      panel.classList.add('open');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+</script>
+
+</body>
+</html>

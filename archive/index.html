@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pleroma Archive | Neutral Repository of Gnosis</title>
+<!-- To rename: change title above and h1 below to "Church of the Green Laurels" when ready -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1c1610;
+    --parchment: #f0ead8;
+    --parchment-dark: #e2d9c0;
+    --gold: #8b6914;
+    --gold-light: #c9a84c;
+    --red: #6b1a1a;
+    --border: #8b6914;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--parchment);
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(139,105,20,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(107,26,26,0.03) 0%, transparent 50%);
+    color: var(--ink);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* Decorative border frame */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 12px; left: 12px; right: 12px; bottom: 12px;
+    border: 1px solid var(--gold);
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.3;
+  }
+
+  .page-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 40px;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    padding-bottom: 40px;
+    margin-bottom: 50px;
+    position: relative;
+  }
+
+  header::after {
+    content: '✦ ✦ ✦';
+    display: block;
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 12px;
+    margin-top: 30px;
+  }
+
+  .seal {
+    width: 140px;
+    height: auto;
+    display: block;
+    margin: 0 auto 30px;
+    opacity: 0.92;
+    filter: sepia(20%);
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .curator {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink);
+    opacity: 0.8;
+  }
+
+  /* Section headings */
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--parchment-dark);
+  }
+
+  section {
+    margin-bottom: 50px;
+  }
+
+  p {
+    margin-bottom: 14px;
+    font-size: 1.05rem;
+  }
+
+  /* Archive Table */
+  .archive-grid {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+
+  .archive-grid thead tr {
+    border-bottom: 2px solid var(--gold);
+  }
+
+  .archive-grid th {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .archive-grid td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--parchment-dark);
+    vertical-align: top;
+  }
+
+  .archive-grid tbody tr:hover {
+    background: rgba(139,105,20,0.05);
+  }
+
+  .archive-grid td:first-child {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+
+  .archive-grid td:nth-child(2) {
+    font-style: italic;
+    color: #4a4035;
+    font-size: 0.95rem;
+  }
+
+  .status-open {
+    display: inline-block;
+    padding: 3px 10px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .status-open:hover {
+    background: var(--gold);
+    color: var(--parchment);
+  }
+
+  .status-pending {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    font-style: normal;
+  }
+
+  /* Mandate block */
+  .mandate {
+    border-left: 3px solid var(--gold);
+    padding: 16px 24px;
+    background: rgba(139,105,20,0.04);
+    margin: 24px 0;
+    font-style: italic;
+    font-size: 1.05rem;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--parchment-dark);
+    font-size: 0.88rem;
+    color: #5a5040;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  footer a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* Divider ornament */
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 1.1rem;
+    letter-spacing: 8px;
+    margin: 30px 0;
+  }
+
+  @media (max-width: 600px) {
+    .page-wrapper { padding: 40px 24px; }
+    h1 { font-size: 1.6rem; }
+    footer { flex-direction: column; }
+    .archive-grid td:nth-child(2) { display: none; }
+  }
+.parent-link{margin:0 0 1.5rem;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+.parent-link a{text-decoration:none;opacity:.75}
+.parent-link a:hover{opacity:1}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <p class="parent-link"><a href="../index.html">&larr; The Church of Barbelo</a></p>
+
+  <header>
+    <img src="abraxas_seal.png.jpg" alt="Seal of The Pleroma Archive" class="seal">
+    <p class="subtitle">Neutral Repository of Gnosis</p>
+    <h1>The Pleroma Archive</h1>
+    <p class="curator">Founded and maintained by Aaron Clews, Priest of the Church of Barbelo</p>
+  </header>
+
+  <section>
+    <h2>Mission &amp; Governance</h2>
+    <div class="mandate">
+      Gnosis is Gnosis. We exist solely to preserve and provide public access to the records of the Spark.
+    </div>
+    <p>The Pleroma Archive is an independent, non-political library-church dedicated to the neutral stewardship and preservation of Gnostic records. It is founded and hosted by the Church of Barbelo, and it is not governed by it: no material is admitted or refused on doctrinal grounds, and nothing preserved here carries the Church’s endorsement. Our mandate is the protection of the documentary heritage of Gnosis — ensuring that ancient and modern insights are never lost to time or institutional censorship.</p>
+    <p>We do not preach, nor do we evangelise. Submissions are accepted from all who carry the Spark, reviewed by the curator for copyright and integrity, and preserved here for public access in perpetuity.</p>
+  </section>
+
+  <div class="ornament">— ✦ —</div>
+
+  <section>
+    <h2>Library Directory</h2>
+    <table class="archive-grid">
+      <thead>
+        <tr>
+          <th>Archive Section</th>
+          <th>Scope</th>
+          <th>Access</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Restored Texts</td>
+          <td>Nag Hammadi, Hermetica &amp; related texts</td>
+          <td><span class="status-pending">Under Curation</span></td>
+        </tr>
+        <tr>
+          <td>Liturgy &amp; Gospel</td>
+          <td>User-submitted liturgy, personal gospels &amp; sacred writing</td>
+          <td><span class="status-pending">Under Curation</span></td>
+        </tr>
+        <tr>
+          <td>Modern Commentary</td>
+          <td>Scholarly &amp; philosophical works</td>
+          <td><span class="status-pending">Under Curation</span></td>
+        </tr>
+        <tr>
+          <td>User Submission</td>
+          <td>Community writings &amp; submitted works</td>
+          <td><a href="user-submission.html" class="status-open">Enter Archive</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="ornament">— ✦ —</div>
+
+  <section>
+    <h2>The Sophia Criterion</h2>
+    <p>Submissions are accepted on a single basis: if Sophia speaks through you and you write it down, it belongs here. The curator reviews all submissions for copyright compliance and to ensure the integrity of the archive before publication.</p>
+    <p>All preserved material is made freely available to the public with attribution to the contributor. A hardback edition of the archive is available for those who wish to support its continuation.</p>
+  </section>
+
+  <footer>
+    <span><strong>Contact:</strong> <a href="mailto:pleromaarchive@gmail.com">pleromaarchive@gmail.com</a></span>
+    <span>All user-uploaded material preserved for public access with attribution.</span>
+    <span>Hosted by <a href="../index.html">The Church of Barbelo</a>.</span>
+  </footer>
+
+</div>
+</body>
+</html>
