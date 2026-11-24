@@ -165,7 +165,7 @@ h3{font-size:1.2rem;line-height:1.3}
 .btn.solid:hover{background:var(--lapis);border-color:var(--lapis);color:var(--vellum)}
 
 /* ---------- sections ---------- */
-.band{padding:clamp(3rem,8vw,5.5rem) 0;border-top:1px solid var(--rule);scroll-margin-top:70px}
+.band{padding:clamp(2.25rem,7vw,5.5rem) 0;border-top:1px solid var(--rule);scroll-margin-top:70px}
 .band.raised{background:var(--card)}
 .band > .wrap > h2{max-width:22ch}
 .section-head{margin-bottom:clamp(1.75rem,4vw,2.5rem)}
@@ -206,6 +206,16 @@ h3{font-size:1.2rem;line-height:1.3}
 .entry h3{margin-bottom:.35rem}
 .entry p{margin:0;color:var(--muted)}
 .entry a.more{font-family:var(--util);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;display:inline-block;margin-top:.7rem}
+
+.entry[hidden]{display:none!important}
+/* collapsible "read more" blocks */
+details.more-text{margin-top:1.1em}
+details.more-text > summary{list-style:none;cursor:pointer;font-family:var(--util);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);display:inline-flex;align-items:center;gap:.5em;padding:.2em 0;border-bottom:1px solid var(--rule)}
+details.more-text > summary::-webkit-details-marker{display:none}
+details.more-text > summary::after{content:"+";font-size:1rem;line-height:1}
+details.more-text[open] > summary::after{content:"\2212"}
+details.more-text[open] > summary{margin-bottom:1.1em}
+.news-toggle{margin-top:1.5rem;background:none;cursor:pointer}
 .feed-note{font-family:var(--util);font-size:.78rem;color:var(--muted);margin-top:1.5rem}
 
 /* ---------- links ---------- */
@@ -299,8 +309,11 @@ h3{font-size:1.2rem;line-height:1.3}
       <div class="prose">
         <p class="lede">We are a small religious body who hold that the human being carries a spark of the divine fullness, and that the purpose of a life is to know it.</p>
         <p>We work from the oldest layer of the tradition: the cosmology as it stood before a Christian frame was set over it. That layer has no single saviour in it. The Christ spirit has moved through many, in many ages, and we do not hold that it entered the world once and departed. Jesus is not the figure we work from; he is simply not the layer we work from.</p>
-        <p>What survives of that layer survives mostly in the words of people who wrote to condemn it. Part of our work is ordinary religious life &mdash; teaching, rites, care for members. The other part is recovering the tradition from those hostile accounts and setting it out plainly, so that it can be judged on what it actually says.</p>
         <p>You do not need to believe anything to write to us, and there is nothing to sign. If you have come here because something in the material has caught you, that is reason enough.</p>
+        <details class="more-text">
+          <summary>Our work</summary>
+          <p>What survives of that layer survives mostly in the words of people who wrote to condemn it. Part of our work is ordinary religious life &mdash; teaching, rites, care for members. The other part is recovering the tradition from those hostile accounts and setting it out plainly, so that it can be judged on what it actually says.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -341,9 +354,12 @@ h3{font-size:1.2rem;line-height:1.3}
       </div>
       <div class="prose">
         <p class="lede">The Invisible Spirit cannot be named. That is not modesty about our vocabulary but the substance of the teaching: what lies beyond the fullness is beyond description, and a church named for the Monad would contradict itself in its own title.</p>
-        <p>Barbelo is the first thing that can be named. She is the Spirit's own thought of itself, the first emanation, the womb of the fullness &mdash; the point at which the unnameable becomes something a person can turn toward. A tradition must be named for something it can hold, and she is the first such thing there is.</p>
-        <p>The ancient writers who catalogued our predecessors called them <em>Barbeliotae</em>, Barbelo-worshippers. The word was theirs, not ours, and it was slightly wrong: she is venerated as the first Thought, not as the God beyond her. We take the root and leave the error. <strong>Barbeline</strong> is our own word, in our own language, for a tradition that until now was named only by the people who wished to see the back of it.</p>
-        <p class="muted" style="font-size:.95rem">On where this layer sits among the others, and why the older labels do not fit it, see <a href="before-the-umbrella.html"><em>Before the Umbrella</em></a>.</p>
+        <details class="more-text">
+          <summary>Read the full reasoning</summary>
+          <p>Barbelo is the first thing that can be named. She is the Spirit's own thought of itself, the first emanation, the womb of the fullness &mdash; the point at which the unnameable becomes something a person can turn toward. A tradition must be named for something it can hold, and she is the first such thing there is.</p>
+          <p>The ancient writers who catalogued our predecessors called them <em>Barbeliotae</em>, Barbelo-worshippers. The word was theirs, not ours, and it was slightly wrong: she is venerated as the first Thought, not as the God beyond her. We take the root and leave the error. <strong>Barbeline</strong> is our own word, in our own language, for a tradition that until now was named only by the people who wished to see the back of it.</p>
+          <p class="muted" style="font-size:.95rem">On where this layer sits among the others, and why the older labels do not fit it, see <a href="before-the-umbrella.html"><em>Before the Umbrella</em></a>.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -448,9 +464,11 @@ function renderNews(items){
     return;
   }
   items.sort(function(a,b){ return (b.date || '').localeCompare(a.date || ''); });
-  items.forEach(function(item){
+  var LIMIT = 3, hidden = [];
+  items.forEach(function(item, i){
     var el = document.createElement('article');
     el.className = 'entry';
+    if (i >= LIMIT){ el.hidden = true; hidden.push(el); }
 
     var meta = document.createElement('div');
     meta.className = 'meta';
@@ -481,6 +499,17 @@ function renderNews(items){
     el.appendChild(main);
     host.appendChild(el);
   });
+  if (hidden.length){
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn news-toggle';
+    btn.textContent = 'Show older notices (' + hidden.length + ')';
+    btn.addEventListener('click', function(){
+      hidden.forEach(function(el){ el.hidden = false; });
+      btn.remove();
+    });
+    host.appendChild(btn);
+  }
 }
 
 fetch('news.json', {cache:'no-cache'})
