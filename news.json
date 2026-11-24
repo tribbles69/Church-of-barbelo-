@@ -1,6 +1,13 @@
 [
   {
     "date": "2026-11-24",
+    "tag": "Doctrine",
+    "title": "What We Hold is published",
+    "body": "A single page setting out the Church’s teaching and practice, with each part marked by how firmly it is held, from settled teaching to proposals offered for discussion.",
+    "link": "beliefs.html"
+  },
+  {
+    "date": "2026-11-24",
     "tag": "Archive",
     "title": "The Pleroma Archive moves to its own site",
     "body": "The Archive is now published separately from the Church, as a companion project with its own address. The two sites link to each other, and the Archive remains editorially independent of the Church’s teaching.",
